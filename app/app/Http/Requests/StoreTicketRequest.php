@@ -1,0 +1,4 @@
+<?php
+namespace App\Http\Requests;
+use Illuminate\Foundation\Http\FormRequest; use Illuminate\Validation\Rule;
+final class StoreTicketRequest extends FormRequest { public function authorize():bool{return true;} public function rules():array{return ['organization_id'=>['required','integer','exists:organizations,id'],'customer_id'=>['required','integer',Rule::exists('customers','id')->where(fn($q)=>$q->where('organization_id',$this->integer('organization_id'))) ],'project_id'=>['nullable','integer',Rule::exists('projects','id')->where(fn($q)=>$q->where('organization_id',$this->integer('organization_id'))->where('customer_id',$this->integer('customer_id'))) ],'subject'=>['required','string','max:120'],'description'=>['nullable','string','max:5000'],'priority'=>['sometimes',Rule::in(['low','normal','high','urgent'])]];} }

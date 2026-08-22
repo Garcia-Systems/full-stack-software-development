@@ -1,11 +1,11 @@
 #!/bin/sh
 set -eu
-base="http://localhost:${APP_PORT:-8080}"
-subject="Smoke ticket $(date +%s)"
-response=$(curl -fsS -D /tmp/relaydesk-headers -H 'Content-Type: application/json' -d "{\"subject\":\"$subject\"}" "$base/api/tickets")
-grep -qi '^X-Request-ID:' /tmp/relaydesk-headers
-printf '%s' "$response" | grep -Fq "$subject"
-curl -fsS "$base/api/tickets" | grep -Fq "$subject"
-code=$(curl -sS -o /tmp/relaydesk-error -w '%{http_code}' -X PUT "$base/api/tickets")
-[ "$code" = 405 ]
-echo 'Live vertical-path smoke test passed.'
+base="http://localhost:${APP_PORT:-8080}"; subject="Smoke ticket $(date +%s)"
+response=$(curl -fsS -D /tmp/relaydesk-headers -H 'X-Request-ID: smoke-path' -H 'Content-Type: application/json' -d "{\"organization_id\":1,\"customer_id\":1,\"subject\":\"$subject\"}" "$base/api/tickets")
+grep -qi '^X-Request-ID: smoke-path' /tmp/relaydesk-headers; printf %s "$response" | grep -Fq "$subject"
+id=$(printf %s "$response" | php -r '$v=json_decode(stream_get_contents(STDIN),true); echo $v["ticket"]["id"];')
+curl -fsS "$base/api/tickets/$id" | grep -Fq "$subject"
+curl -fsS -X PATCH -H 'Content-Type: application/json' -d '{"subject":"Smoke updated"}' "$base/api/tickets/$id" | grep -Fq 'Smoke updated'
+code=$(curl -sS -o /tmp/relaydesk-error -w '%{http_code}' -H 'Content-Type: application/json' -d '{}' "$base/api/tickets"); [ "$code" = 422 ]
+curl -fsS -X DELETE "$base/api/tickets/$id" >/dev/null
+echo 'Live Part II CRUD and validation smoke test passed.'

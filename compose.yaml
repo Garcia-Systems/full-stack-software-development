@@ -6,9 +6,7 @@ services:
       MYSQL_USER: ${DB_USERNAME:-relaydesk}
       MYSQL_PASSWORD: ${DB_PASSWORD:-relaydesk}
       MYSQL_ROOT_PASSWORD: local-root-only
-    volumes:
-      - relaydesk-data:/var/lib/mysql
-      - ./app/database/mysql:/docker-entrypoint-initdb.d:ro
+    volumes: [relaydesk-data:/var/lib/mysql]
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-plocal-root-only"]
       interval: 2s
@@ -17,20 +15,19 @@ services:
   web:
     build: app
     environment:
+      APP_NAME: RelayDesk
       APP_ENV: ${APP_ENV:-local}
+      APP_KEY: ${APP_KEY:-base64:MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY=}
+      APP_DEBUG: "false"
+      DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
       DB_DATABASE: ${DB_DATABASE:-relaydesk}
       DB_USERNAME: ${DB_USERNAME:-relaydesk}
       DB_PASSWORD: ${DB_PASSWORD:-relaydesk}
-      LAB_FAULTS: ${LAB_FAULTS:-true}
-    ports:
-      - "${APP_PORT:-8080}:8080"
-    volumes:
-      - ./app:/app
+      LOG_CHANNEL: stderr
+    ports: ["${APP_PORT:-8080}:8080"]
     depends_on:
-      db:
-        condition: service_healthy
-    command: ["php", "-S", "0.0.0.0:8080", "-t", "public", "public/router.php"]
+      db: {condition: service_healthy}
 volumes:
   relaydesk-data:

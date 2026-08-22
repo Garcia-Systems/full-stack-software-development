@@ -442,6 +442,10 @@ Additional hard limits: no new runtime service without a chapter experiment and 
 11. What data privacy/redaction policy governs fixtures, screenshots, logs, and audit before any content is generated?
 12. Who pilots each phase, and what signals—completion time, reset failures, diagnostic accuracy, and test flakiness—cause scope revision?
 
-## 16. Recommended next task
+## 16. Implementation status
 
-The next Codex task should implement **Phase 0 only**: decide/pin the initial supported stack, add ADRs and the chapter/lab definition-of-done template, create the concise root README and environment preflight/bootstrap skeleton, and add a minimal CI documentation check. It should not scaffold RelayDesk or create 60 chapter files. That task should end with a clean-clone command transcript and a decision log for any unresolved host/tooling trade-offs.
+Part II is implemented in Chapters 9–17 with Laravel 12, PHPUnit, the four initial RelayDesk domain entities, deterministic migrations/seed data, request IDs, observable CRUD, validation, services, and typed error behavior. Composite database enforcement of tenant parentage remains explicitly deferred to Chapter 24; authorization remains Chapters 40–41.
+
+## 17. Recommended next task
+
+The next task should implement **Part III, Chapters 18–24 only**: SQL inspection, joins, workload-driven indexes and query plans, transactions, deterministic concurrency, and composite database constraints. It must evolve this Laravel application without adding React, authentication, queues, or later-part infrastructure.

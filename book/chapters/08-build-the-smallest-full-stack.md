@@ -1,6 +1,6 @@
 # 8. Build the Smallest Full Stack
 
-[Previous](07-persistent-state.md) · [Book home](../../README.md)
+[Previous](07-persistent-state.md) · [Next: A real Laravel application](09-real-laravel-application.md)
 
 The milestone is one genuine vertical feature: browser input → HTTP request → PHP validation and SQL → MySQL row → JSON response → refreshed GET → DOM.
 

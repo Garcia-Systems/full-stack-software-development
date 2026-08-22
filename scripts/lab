@@ -8,7 +8,7 @@ case "$action" in
   reset) ./scripts/reset ;;
   verify)
     case "$chapter" in
-      1|2|4|8) ./scripts/smoke ;;
+      1|2|4|8|9|10|11|12|13|14|15|16|17) ./scripts/smoke ;;
       *) curl -fsS "http://localhost:${APP_PORT:-8080}/api/tickets" >/dev/null; echo "Chapter $chapter service check passed." ;;
     esac ;;
   *) echo 'action must be setup, verify, or reset' >&2; exit 2 ;;
