@@ -12,7 +12,9 @@ COPY composer.json ./
 RUN composer install --no-interaction --prefer-dist --no-scripts
 COPY . .
 COPY --from=frontend /app/public/build /app/public/build
-RUN composer dump-autoload --optimize
+RUN mkdir -p bootstrap/cache storage/framework/cache/data storage/framework/sessions storage/framework/views storage/logs \
+    && chmod -R u+rwX bootstrap/cache storage \
+    && composer dump-autoload --optimize
 FROM php:8.4-cli
 RUN docker-php-ext-install pdo_mysql
 WORKDIR /app

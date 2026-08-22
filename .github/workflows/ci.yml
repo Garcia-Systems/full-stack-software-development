@@ -20,6 +20,14 @@ jobs:
         with: {php-version: "8.4", extensions: pdo_mysql, coverage: none}
       - uses: actions/setup-node@v4
         with: {node-version: "20"}
+      - name: Prepare Laravel runtime directories
+        run: |
+          mkdir -p app/bootstrap/cache \
+            app/storage/framework/cache/data \
+            app/storage/framework/sessions \
+            app/storage/framework/views \
+            app/storage/logs
+          chmod -R u+rwX app/bootstrap/cache app/storage
       - name: Install dependencies
         run: cd app && composer install --no-interaction --prefer-dist && npm install
       - name: Backend and API evidence
