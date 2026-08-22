@@ -2,6 +2,8 @@
 
 Tests are executable evidence about expected behavior. We select a level from the risk and disputed boundary, not from a coverage target.
 
+RelayDesk deliberately installs PHPUnit directly and uses `vendor/bin/phpunit` as its backend test runner. The minimal application does not install Collision, which supplies Laravel's optional `artisan test` command. `composer test` is a convenience wrapper around the same PHPUnit executable, so CI, containers, chapter commands, and Composer all exercise one interface.
+
 | Level | Proves here | Does not prove | Command |
 | --- | --- | --- | --- |
 | Unit | A domain decision in PHP without booting Laravel | SQL, wiring, or HTTP | `make test-unit` |

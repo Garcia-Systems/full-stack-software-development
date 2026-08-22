@@ -67,7 +67,7 @@ docker compose exec db mysql -urelaydesk -prelaydesk relaydesk -e 'SHOW CREATE T
 docker compose exec db mysql -urelaydesk -prelaydesk relaydesk -e 'SHOW INDEX FROM tickets;'
 docker compose exec web php artisan lab:database plan
 docker compose exec web php artisan lab:database integrity
-docker compose exec web php artisan test
+docker compose exec web vendor/bin/phpunit
 docker compose logs -f web
 ```
 

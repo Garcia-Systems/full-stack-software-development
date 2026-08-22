@@ -23,7 +23,7 @@ Create is `POST → route → StoreTicketRequest → controller → INSERT → 2
 An update returning `200` is not proof that the intended field persisted. Change a subject, query the row, and retrieve it again. The feature test asserts both JSON and `assertDatabaseHas`, preventing a controller that returns input without saving from looking successful:
 
 ```sh
-docker compose exec web php artisan test --filter=TicketCrudTest
+docker compose exec web vendor/bin/phpunit --filter=TicketCrudTest
 ```
 
 HTTP status, response body, SQL state, logs, and tests are complementary evidence. Generators can type boilerplate but cannot choose these contracts.

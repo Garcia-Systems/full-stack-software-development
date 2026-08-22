@@ -32,7 +32,7 @@ Stop MySQL only after the other cases if you want the persistence variant: `dock
 
 ```sh
 scripts/lab chapter 17 verify
-docker compose exec web php artisan test
+docker compose exec web vendor/bin/phpunit
 ```
 
 At Part II's boundary you can now reconstruct: HTTP → route → controller → validation → service/business rule → Eloquent → MySQL → response, joined by request identity and checked at each important boundary. Authentication, richer API resources, and database internals remain later work.

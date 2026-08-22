@@ -10,13 +10,13 @@ reset:
 test:
 	./scripts/test
 test-backend:
-	docker compose exec web php artisan test
+	docker compose exec web vendor/bin/phpunit
 test-unit:
-	docker compose exec web php artisan test tests/Unit
+	docker compose exec web vendor/bin/phpunit tests/Unit
 test-integration:
-	docker compose exec web php artisan test tests/Feature/DatabaseIntegrityTest.php tests/Feature/ProjectTransactionTest.php tests/Feature/OptimisticConcurrencyTest.php tests/Feature/RelationshipQueryTest.php
+	docker compose exec web vendor/bin/phpunit tests/Feature/DatabaseIntegrityTest.php tests/Feature/ProjectTransactionTest.php tests/Feature/OptimisticConcurrencyTest.php tests/Feature/RelationshipQueryTest.php
 test-api:
-	docker compose exec web php artisan test tests/Feature/PartFiveApiTest.php tests/Feature/PartSixResilienceTest.php
+	docker compose exec web vendor/bin/phpunit tests/Feature/PartFiveApiTest.php tests/Feature/PartSixResilienceTest.php
 test-e2e:
 	cd app && npm run test:e2e
 debug-capstone:

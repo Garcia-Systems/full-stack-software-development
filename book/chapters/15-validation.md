@@ -22,4 +22,4 @@ curl -i -H 'Content-Type: application/json' -d '{"organization_id":1,"customer_i
 
 The first three produce `422` with a field-keyed `errors` object and request ID header; no INSERT occurs. Malformed JSON itself produces Laravel's request error response before these semantic rules. Inspect response plus row count.
 
-Validation is not a synonym for all correctness. “Customer must be active before a project is opened” depends on existing state and belongs to the operation in Chapter 16. Run `php artisan test --filter=validation` to preserve the boundary contract.
+Validation is not a synonym for all correctness. “Customer must be active before a project is opened” depends on existing state and belongs to the operation in Chapter 16. Run `vendor/bin/phpunit --filter=validation` to preserve the boundary contract.

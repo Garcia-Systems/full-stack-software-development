@@ -9,7 +9,7 @@ A useful unit boundary tests a small behavior without requiring the entire appli
 Arrange a closed ticket. Act by requesting `open`. Assert the meaningful business rejection. The test fails if someone permits the transition—not because a getter or framework detail changed.
 
 ```sh
-docker compose exec web php artisan test tests/Unit
+docker compose exec web vendor/bin/phpunit tests/Unit
 ```
 
 ## Regression exercise

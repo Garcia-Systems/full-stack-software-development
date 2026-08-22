@@ -5,14 +5,14 @@ find app -path 'app/vendor' -prune -o -name '*.php' -print -exec php -l {} \; | 
 if command -v npm >/dev/null 2>&1 && [ -d app/node_modules ]; then
   (cd app && npm run typecheck && npm run lint && npm run format:check && npm run test:frontend && npm run build)
 else echo 'WARNING: frontend dependencies are absent; run make frontend-install.' >&2; fi
-if [ -x app/vendor/bin/phpunit ]; then (cd app && php artisan test); else echo 'WARNING: app/vendor is absent; host PHPUnit skipped (Docker image installs it).' >&2; fi
+if [ -x app/vendor/bin/phpunit ]; then (cd app && vendor/bin/phpunit); else echo 'WARNING: app/vendor is absent; host PHPUnit skipped (Docker image installs it).' >&2; fi
 if command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then
   docker compose down -v
   docker compose up --build -d
   trap 'docker compose down -v' EXIT
   i=0; until curl -fsS "http://localhost:${APP_PORT:-8080}/api/tickets" >/dev/null 2>&1; do i=$((i+1)); [ "$i" -lt 90 ] || { docker compose logs web db; exit 1; }; sleep 1; done
   docker compose exec web php artisan migrate:status
-  docker compose exec web php artisan test
+  docker compose exec web vendor/bin/phpunit
   ./scripts/smoke
   if [ -d app/node_modules ] && [ -x app/node_modules/.bin/playwright ]; then
     (cd app && npm run test:e2e)

@@ -29,7 +29,7 @@ Reset, then run the atomic implementation:
 make reset
 docker compose exec web php artisan lab:database transaction --fail
 docker compose exec web php artisan lab:database transaction
-docker compose exec web php artisan test --filter=ProjectTransactionTest
+docker compose exec web vendor/bin/phpunit --filter=ProjectTransactionTest
 ```
 
 On failure, Laravel's `DB::transaction` rolls back both the write and its visible business outcome. On success, both commit. Atomicity means other work sees the entire provisioned project or none of it—not merely that code uses transaction syntax. Transactions do not validate inputs or solve every race. [Laravel documents automatic commit and rollback](https://laravel.com/docs/12.x/database#database-transactions); MySQL documents [InnoDB transaction statements](https://dev.mysql.com/doc/refman/8.4/en/commit.html).
