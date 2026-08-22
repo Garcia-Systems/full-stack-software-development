@@ -1,4 +1,4 @@
-.PHONY: setup up down reset test smoke routes migrate-status logs
+.PHONY: setup up down reset test smoke routes migrate-status logs db-shell db-labs
 setup:
 	./scripts/bootstrap
 up:
@@ -17,3 +17,7 @@ migrate-status:
 	docker compose exec web php artisan migrate:status
 logs:
 	docker compose logs -f web
+db-shell:
+	docker compose exec db mysql -urelaydesk -prelaydesk relaydesk
+db-labs:
+	docker compose exec web php artisan help lab:database

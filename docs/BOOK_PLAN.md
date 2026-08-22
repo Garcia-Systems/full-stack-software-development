@@ -444,8 +444,8 @@ Additional hard limits: no new runtime service without a chapter experiment and 
 
 ## 16. Implementation status
 
-Part II is implemented in Chapters 9–17 with Laravel 12, PHPUnit, the four initial RelayDesk domain entities, deterministic migrations/seed data, request IDs, observable CRUD, validation, services, and typed error behavior. Composite database enforcement of tenant parentage remains explicitly deferred to Chapter 24; authorization remains Chapters 40–41.
+Parts II and III are implemented through Chapter 24 with Laravel 12, MySQL 8.4, PHPUnit, the four initial RelayDesk domain entities, deterministic small and performance fixtures, SQL/query-plan inspection, relationship query counting, transactions, optimistic concurrency, and database constraints. Composite tenant parentage is now enforced below Laravel. Authorization remains Chapters 40–41.
 
 ## 17. Recommended next task
 
-The next task should implement **Part III, Chapters 18–24 only**: SQL inspection, joins, workload-driven indexes and query plans, transactions, deterministic concurrency, and composite database constraints. It must evolve this Laravel application without adding React, authentication, queues, or later-part infrastructure.
+The next task should implement **Part IV, Chapters 25–34 only**: a fixture-backed Vite React/TypeScript client that teaches browser data, asynchronous control, types, rendering, components, state, effects, forms, routing, and feature-oriented architecture. It must not integrate the final Laravel API/authentication contract from Chapters 35 onward.
