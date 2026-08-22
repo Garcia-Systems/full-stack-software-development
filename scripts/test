@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+find app tests -name '*.php' -print -exec php -l {} \; | tee /tmp/relaydesk-php-lint
+php tests/app_test.php
+./scripts/check-docs
+if command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then
+  docker compose up --build -d
+  trap 'docker compose down -v' EXIT
+  i=0; until curl -fsS http://localhost:${APP_PORT:-8080}/api/tickets >/dev/null 2>&1; do i=$((i+1)); [ "$i" -lt 60 ] || exit 1; sleep 1; done
+  ./scripts/smoke
+else
+  echo 'WARNING: Docker unavailable; skipped MySQL integration smoke test.' >&2
+fi

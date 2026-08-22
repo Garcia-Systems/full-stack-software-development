@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+docker compose down -v
+docker compose up --build -d
+printf 'Reset complete: database volume recreated with two deterministic tickets.\n'

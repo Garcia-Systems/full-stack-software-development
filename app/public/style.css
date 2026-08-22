@@ -1,0 +1,5 @@
+:root { font-family: system-ui, sans-serif; color: #172033; background: #eef2f7; }
+main { max-width: 44rem; margin: 4rem auto; padding: 2rem; background: white; border-radius: .75rem; box-shadow: 0 .5rem 2rem #17203322; }
+.eyebrow { color: #52627a; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+label { display: block; font-weight: 700; margin-bottom: .4rem; }
+form div { display: flex; gap: .5rem; } input { flex: 1; padding: .65rem; } button { padding: .65rem 1rem; } li { margin: .55rem 0; } code { background: #eef2f7; padding: .1rem .25rem; }

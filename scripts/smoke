@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+base="http://localhost:${APP_PORT:-8080}"
+subject="Smoke ticket $(date +%s)"
+response=$(curl -fsS -D /tmp/relaydesk-headers -H 'Content-Type: application/json' -d "{\"subject\":\"$subject\"}" "$base/api/tickets")
+grep -qi '^X-Request-ID:' /tmp/relaydesk-headers
+printf '%s' "$response" | grep -Fq "$subject"
+curl -fsS "$base/api/tickets" | grep -Fq "$subject"
+code=$(curl -sS -o /tmp/relaydesk-error -w '%{http_code}' -X PUT "$base/api/tickets")
+[ "$code" = 405 ]
+echo 'Live vertical-path smoke test passed.'

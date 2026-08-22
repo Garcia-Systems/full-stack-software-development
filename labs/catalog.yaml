@@ -1,0 +1,31 @@
+faults:
+  - chapter: 2
+    name: response-field
+    activate: "curl -H 'X-Lab-Fault: response-field' http://localhost:8080/api/tickets"
+    boundary: application-response
+    reset: remove-the-header
+  - chapter: 3
+    name: browser-runtime
+    activate: "open http://localhost:8080/?browser_fault=1"
+    boundary: browser-runtime
+    reset: remove-the-query-string
+  - chapter: 4
+    name: wrong-content-type
+    activate: "curl -d '{\"subject\":\"Example\"}' http://localhost:8080/api/tickets"
+    boundary: http-contract
+    reset: send-Content-Type-application-json
+  - chapter: 5
+    name: closed-port
+    activate: "curl -v http://localhost:8081/api/tickets"
+    boundary: connection
+    reset: use-port-8080
+  - chapter: 7
+    name: bad-database-password
+    activate: "DB_PASSWORD=wrong docker compose up --force-recreate web"
+    boundary: database-connection
+    reset: "docker compose up -d --force-recreate web"
+  - chapter: 8
+    name: column-mismatch
+    activate: "curl -i -H 'X-Lab-Fault: column-mismatch' http://localhost:8080/api/tickets"
+    boundary: application-database-query
+    reset: remove-the-header
