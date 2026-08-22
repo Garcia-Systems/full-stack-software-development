@@ -140,3 +140,27 @@ faults:
     scenarios: [wrong-field-name, wrong-method, validation, unauthenticated, forbidden, server-error, cors-origin]
     activate: "Use the documented request or X-RelayDesk-Lab header with LAB_FAULTS=true"
     reset: "make reset"
+  - id: part-vi-cache-staleness
+    chapters: [44]
+    safety: development-only
+    scenarios: [miss, hit, stale-copy, targeted-invalidation]
+    activate: "docker compose exec web php artisan lab:resilience cache"
+    reset: "make reset"
+  - id: part-vi-async-dependency
+    chapters: [45, 46, 47, 50]
+    safety: local-simulator-only
+    scenarios: [worker-unavailable, delay, transient, persistent, malformed, client-error, retry-exhaustion]
+    activate: "make dependency-mode MODE=persistent"
+    reset: "make reset"
+  - id: part-vi-duplicate-and-race
+    chapters: [48, 49]
+    safety: deterministic-database-harness
+    scenarios: [duplicate-request, conflicting-key-reuse, interleaved-worker-claim]
+    activate: "scripts/lab chapter 49 verify"
+    reset: "make reset"
+  - id: part-vi-performance
+    chapters: [51]
+    safety: relative-measurement-no-exact-threshold
+    scenarios: [cache-miss, cache-hit]
+    activate: "docker compose exec web php artisan lab:resilience performance"
+    reset: "make cache-clear"
