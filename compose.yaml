@@ -1,0 +1,36 @@
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-relaydesk}
+      MYSQL_USER: ${DB_USERNAME:-relaydesk}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-relaydesk}
+      MYSQL_ROOT_PASSWORD: local-root-only
+    volumes:
+      - relaydesk-data:/var/lib/mysql
+      - ./app/database/mysql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-plocal-root-only"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  web:
+    build: app
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE:-relaydesk}
+      DB_USERNAME: ${DB_USERNAME:-relaydesk}
+      DB_PASSWORD: ${DB_PASSWORD:-relaydesk}
+      LAB_FAULTS: ${LAB_FAULTS:-true}
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    volumes:
+      - ./app:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["php", "-S", "0.0.0.0:8080", "-t", "public", "public/router.php"]
+volumes:
+  relaydesk-data:

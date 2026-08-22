@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+[ "${1:-}" = chapter ] || { echo 'usage: scripts/lab chapter NN setup|verify|reset' >&2; exit 2; }
+chapter=$(printf '%d' "${2:-0}" 2>/dev/null) || exit 2
+action=${3:-}
+case "$action" in
+  setup) echo "Chapter $chapter uses the normal tiny dataset. See book/chapters/$(printf '%02d' "$chapter")-*.md." ;;
+  reset) ./scripts/reset ;;
+  verify)
+    case "$chapter" in
+      1|2|4|8) ./scripts/smoke ;;
+      *) curl -fsS "http://localhost:${APP_PORT:-8080}/api/tickets" >/dev/null; echo "Chapter $chapter service check passed." ;;
+    esac ;;
+  *) echo 'action must be setup, verify, or reset' >&2; exit 2 ;;
+esac

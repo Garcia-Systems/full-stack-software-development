@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import re, sys
+root = Path(__file__).resolve().parents[1]
+errors = []
+for path in root.rglob('*.md'):
+    if '.git' in path.parts: continue
+    text = path.read_text()
+    for target in re.findall(r'\[[^]]*\]\(([^)#]+)(?:#[^)]+)?\)', text):
+        if '://' in target or target.startswith('mailto:'): continue
+        resolved = (path.parent / target).resolve()
+        if not resolved.exists(): errors.append(f'{path.relative_to(root)}: missing link {target}')
+    # BOOK_PLAN intentionally names future paths that do not exist yet.
+    if path == root / 'docs/BOOK_PLAN.md': continue
+    for match in re.findall(r'`((?:app|scripts|book|labs)/[^` ]+)`', text):
+        target = match.rstrip('.,:')
+        if '*' not in target and not (root / target).exists(): errors.append(f'{path.relative_to(root)}: missing referenced path {target}')
+if errors:
+    print('\n'.join(errors), file=sys.stderr); sys.exit(1)
+print('Documentation links and repository path references passed.')

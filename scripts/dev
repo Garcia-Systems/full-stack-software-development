@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+[ -f .env ] || cp .env.example .env
+docker compose up --build -d
+printf 'Waiting for RelayDesk'
+i=0
+until curl -fsS http://localhost:${APP_PORT:-8080}/api/tickets >/dev/null 2>&1; do
+  i=$((i+1)); [ "$i" -lt 60 ] || { echo; docker compose logs web db; exit 1; }
+  printf '.'; sleep 1
+done
+echo " ready at http://localhost:${APP_PORT:-8080}"
