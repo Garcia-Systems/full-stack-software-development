@@ -444,10 +444,12 @@ Additional hard limits: no new runtime service without a chapter experiment and 
 
 ## 16. Implementation status
 
-Part V (Chapters 35–43) is implemented. The integrated client uses a lightweight typed fetch boundary and a versioned `/api/v1` contract. Laravel's session guard supplies first-party cookie identity; active organization memberships with `admin`, `agent`, and `viewer` roles enforce server-side tenant access. Explicit Laravel resources own the camel-case representation. Local/testing-only headers provide deterministic delay, empty, and safe unexpected-failure evidence, while an origin allowlist demonstrates credentialed CORS without a wildcard. The earlier unversioned endpoints remain only so Chapters 9–24 commands continue to work.
+Part VI (Chapters 44–51) is implemented. A tenant-keyed database cache makes stale copies and targeted invalidation inspectable. Ticket creation transactionally records an idempotency result and integration delivery, then dispatches durable database-queued work after commit. A repository-owned HTTP simulator supplies deterministic success, delay, transient/persistent failure, malformed, and 4xx modes. Explicit timeouts/retry classification, job exhaustion, correlation relationships, structured safe logs, an atomic unique-claim race, and relative performance evidence extend the same modular monolith.
+
+The implementation uses Laravel's database cache and queue rather than the plan's provisional Redis target. This is a deliberate infrastructure reduction: current educational volume does not justify another datastore, while MySQL tables let learners inspect cached copies, queue ownership, and failed work using established tools. Redis remains an architecture alternative, not a synonym for either concern.
 
 This implementation deliberately uses Laravel's built-in session guard rather than adding Sanctum: the repository needs no token features, and the same stateful identity/cookie mechanics remain visible. Before public deployment, add framework CSRF protection/Sanctum's SPA flow, login rate limiting, HTTPS-only cookies, and a production session store. Those are recorded risks, not claims that this local teaching stack is Internet-ready.
 
 ## 17. Recommended next task
 
-Implement **Part VI, Chapters 44–51 only**: caching/invalidation, queues/background jobs, a repository-owned fake external API, resilience patterns, retry/idempotency, structured logging/metrics, performance reasoning, and advanced race-condition handling. Do not begin testing/deployment Chapters 52–59 or the capstone.
+Implement **Part VII, Chapters 52–58 only**: organize the existing risk-based test suite, add focused database/API/component/end-to-end proof, and culminate in the dedicated full-stack debugging method. Do not begin Chapter 59 deployment or the Chapter 60 capstone.

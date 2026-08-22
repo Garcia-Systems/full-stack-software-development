@@ -23,6 +23,13 @@ case "$action" in
       22) docker compose exec web php artisan test --filter=ProjectTransactionTest ;;
       23) docker compose exec web php artisan test --filter=OptimisticConcurrencyTest ;;
       24) docker compose exec web php artisan lab:database integrity ;;
+      44) docker compose exec web php artisan lab:resilience cache ;;
+      45) docker compose exec web php artisan lab:resilience queue ;;
+      46|47) curl -fsS "http://localhost:${DEPENDENCY_PORT:-8090}/state" ;;
+      48) docker compose exec web php artisan test --filter=same_idempotency_key ;;
+      49) docker compose exec web php artisan lab:resilience race ;;
+      50) docker compose exec web php artisan lab:resilience incident ;;
+      51) docker compose exec web php artisan lab:resilience performance ;;
       *) curl -fsS "http://localhost:${APP_PORT:-8080}/api/tickets" >/dev/null; echo "Chapter $chapter service check passed." ;;
     esac ;;
   *) echo 'action must be setup, verify, or reset' >&2; exit 2 ;;

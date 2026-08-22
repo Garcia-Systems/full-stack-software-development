@@ -2,5 +2,6 @@
 var/
 app/node_modules/
 app/public/build/
+dependency-simulator/.state.json
 __pycache__/
 *.pyc
