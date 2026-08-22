@@ -1,4 +1,10 @@
 faults:
+  - id: part-vii-debug-capstone
+    chapters: [58]
+    safety: development-only-neutral-profile
+    scenarios: [duplicate-outcome, stale-summary, pending-background-work]
+    activate: "make reset && make debug-capstone"
+    reset: "make reset"
   - chapter: 25
     name: wrong-event-name
     activate: "change input listener to change in browser-filter.js"

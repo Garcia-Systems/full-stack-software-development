@@ -24,23 +24,30 @@ const testTickets = [
 Object.defineProperty(globalThis, "fetch", {
   writable: true,
   value: async (_input: RequestInfo | URL, init?: RequestInit) =>
-    new Response(
-      JSON.stringify(
-        init?.method === "POST"
-          ? {
-              data: {
-                ...JSON.parse(String(init.body)),
-                id: 9,
-                status: "open",
-                version: 1,
-              },
-              requestId: "frontend-test",
-            }
-          : { data: testTickets, requestId: "frontend-test" },
-      ),
-      {
-        status: init?.method === "POST" ? 201 : 200,
-        headers: { "Content-Type": "application/json" },
-      },
-    ),
+    String(_input).endsWith("/session")
+      ? new Response(
+          JSON.stringify({
+            user: { name: "Alice", memberships: [{ role: "admin" }] },
+          }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        )
+      : new Response(
+          JSON.stringify(
+            init?.method === "POST"
+              ? {
+                  data: {
+                    ...JSON.parse(String(init.body)),
+                    id: 9,
+                    status: "open",
+                    version: 1,
+                  },
+                  requestId: "frontend-test",
+                }
+              : { data: testTickets, requestId: "frontend-test" },
+          ),
+          {
+            status: init?.method === "POST" ? 201 : 200,
+            headers: { "Content-Type": "application/json" },
+          },
+        ),
 });

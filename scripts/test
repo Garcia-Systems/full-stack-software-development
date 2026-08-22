@@ -14,4 +14,7 @@ if command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; 
   docker compose exec web php artisan migrate:status
   docker compose exec web php artisan test
   ./scripts/smoke
+  if [ -d app/node_modules ] && [ -x app/node_modules/.bin/playwright ]; then
+    (cd app && npm run test:e2e)
+  else echo 'WARNING: Playwright dependencies are absent; run make frontend-install and install Chromium.' >&2; fi
 else echo 'WARNING: Docker unavailable; skipped clean MySQL migration, PHPUnit image, and live smoke checks.' >&2; fi

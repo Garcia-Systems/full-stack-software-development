@@ -1,4 +1,4 @@
-.PHONY: setup up down reset test frontend-install frontend-dev frontend-test frontend-check frontend-build smoke routes migrate-status logs db-shell db-labs worker queue-status cache-clear dependency-mode resilience-labs
+.PHONY: setup up down reset test test-backend test-unit test-integration test-api test-e2e frontend-install frontend-dev frontend-test frontend-check frontend-build smoke routes migrate-status logs db-shell db-labs worker queue-status cache-clear dependency-mode resilience-labs debug-capstone
 setup:
 	./scripts/bootstrap
 up:
@@ -9,6 +9,19 @@ reset:
 	./scripts/reset
 test:
 	./scripts/test
+test-backend:
+	docker compose exec web php artisan test
+test-unit:
+	docker compose exec web php artisan test tests/Unit
+test-integration:
+	docker compose exec web php artisan test tests/Feature/DatabaseIntegrityTest.php tests/Feature/ProjectTransactionTest.php tests/Feature/OptimisticConcurrencyTest.php tests/Feature/RelationshipQueryTest.php
+test-api:
+	docker compose exec web php artisan test tests/Feature/PartFiveApiTest.php tests/Feature/PartSixResilienceTest.php
+test-e2e:
+	cd app && npm run test:e2e
+debug-capstone:
+	LAB_PROFILE=debug-capstone docker compose up -d --force-recreate web worker
+	@echo "Debug capstone active. Run make reset to return to normal."
 frontend-install:
 	cd app && npm install
 frontend-dev:
