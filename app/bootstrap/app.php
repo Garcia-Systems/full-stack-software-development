@@ -7,6 +7,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Illuminate\Session\Middleware\StartSession; use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse; use Illuminate\Cookie\Middleware\EncryptCookies;
 
@@ -24,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return response()->json(['type' => 'persistence_error', 'message' => 'Persistent state is temporarily unavailable.', 'request_id' => $request->attributes->get('request_id')], 503);
         });
         $exceptions->render(function (Throwable $e, Request $request) {
-            if (!$request->is('api/*') || $e instanceof HttpExceptionInterface || $e instanceof QueryException) return null;
+            if (!$request->is('api/*') || $e instanceof HttpExceptionInterface || $e instanceof QueryException || $e instanceof ValidationException) return null;
             Log::error('request.unexpected', ['request_id' => $request->attributes->get('request_id'), 'exception' => get_class($e), 'message' => $e->getMessage()]);
             return response()->json(['type' => 'unexpected_error', 'message' => 'The server could not complete the request.', 'request_id' => $request->attributes->get('request_id')], 500);
         });
