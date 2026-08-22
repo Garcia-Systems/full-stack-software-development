@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS tickets (
-  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  subject VARCHAR(120) NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-INSERT INTO tickets (subject) SELECT 'Printer cannot connect' WHERE NOT EXISTS (SELECT 1 FROM tickets);
-INSERT INTO tickets (subject) SELECT 'Update billing contact' WHERE (SELECT COUNT(*) FROM tickets) = 1;

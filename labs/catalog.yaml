@@ -29,3 +29,38 @@ faults:
     activate: "curl -i -H 'X-Lab-Fault: column-mismatch' http://localhost:8080/api/tickets"
     boundary: application-database-query
     reset: remove-the-header
+  - chapter: 9
+    name: stale-config-cache
+    activate: "docker compose exec web php artisan config:cache"
+    boundary: framework-configuration
+    reset: "docker compose exec web php artisan config:clear"
+  - chapter: 10
+    name: route-constraint
+    activate: "curl -i http://localhost:8080/api/tickets/not-a-number"
+    boundary: routing
+    reset: use-a-numeric-ticket-id
+  - chapter: 12
+    name: invalid-foreign-key
+    activate: "insert a ticket with customer_id 999999"
+    boundary: database-schema
+    reset: no-row-is-written
+  - chapter: 14
+    name: cross-tenant-customer
+    activate: "post organization 1 with customer 3"
+    boundary: relationship-validation
+    reset: use-customer-1
+  - chapter: 15
+    name: rejected-input
+    activate: "post an empty JSON object to /api/tickets"
+    boundary: application-validation
+    reset: send-required-valid-fields
+  - chapter: 16
+    name: inactive-customer
+    activate: "create a project for seeded customer 2"
+    boundary: business-rule
+    reset: use-active-customer-1
+  - chapter: 17
+    name: similar-symptoms
+    activate: "run the five request-ID cases in Chapter 17"
+    boundary: multiple-backend-boundaries
+    reset: "make reset"

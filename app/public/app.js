@@ -15,7 +15,7 @@ async function request(path, options = {}) {
   sessionStorage.setItem('lastRequestId', requestId || 'missing');
   console.info('RelayDesk response', { status: response.status, requestId });
   const data = await response.json();
-  if (!response.ok) throw new Error(`${response.status}: ${data.error}`);
+  if (!response.ok) throw new Error(`${response.status}: ${data.message || data.error || 'Request failed'}`);
   return data;
 }
 async function load() {
@@ -25,7 +25,7 @@ async function load() {
 form.addEventListener('submit', async event => {
   event.preventDefault(); status.textContent = 'Saving…';
   try {
-    await request('/api/tickets', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subject: form.elements.subject.value }) });
+    await request('/api/tickets', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ organization_id: 1, customer_id: 1, subject: form.elements.subject.value }) });
     form.reset(); await load();
   } catch (error) { status.textContent = error.message; console.error(error); }
 });
