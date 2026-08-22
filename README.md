@@ -1,6 +1,6 @@
 # Full-Stack Software Engineering: Build, Break, Debug, Deploy
 
-This repository accompanies an evidence-first book. Parts I–VII are executable. Part VII organizes the accumulated tests as risk-based evidence, adds focused browser journeys, and culminates in a deterministic full-stack debugging capstone.
+This repository accompanies an evidence-first book. The complete 60-chapter curriculum is executable: Parts I–VII build, break, debug, and prove RelayDesk; Part VIII packages the same system for a reproducible production-like release and finishes with an independent team-invitation capstone.
 
 ## Run RelayDesk
 
@@ -23,7 +23,7 @@ make queue-status          # inspect ready/reserved/failed work
 make cache-clear           # clear the second copy of dashboard state
 make dependency-mode MODE=transient # control the local HTTP dependency
 make resilience-labs       # list the Part VI evidence harness
-make frontend-install      # install the pinned Node dependency tree
+make frontend-install      # install the edition's exact direct Node versions
 make frontend-dev          # Vite development server at http://localhost:5173
 make frontend-test         # behavior tests in jsdom
 make frontend-check        # TypeScript, ESLint, and Prettier checks
@@ -33,11 +33,22 @@ make test-integration      # database, transaction, and concurrency evidence
 make test-api              # versioned HTTP contract and side effects
 make test-e2e              # two high-value Playwright journeys (stack must run)
 make debug-capstone        # activate Chapter 58's neutral defect profile
+make production-build      # build the versioned production-like image
+make production-deploy     # migrate, start web/worker, and verify
+make production-verify     # health, version, processes, schema, queue evidence
+make backup                # consistent local MySQL dump (ignored by Git)
+make restore-verify FILE=backups/name.sql # restore into an isolated database
 ```
 
 Visit <http://localhost:8080> for the built SPA. It uses the versioned `/api/v1` JSON contract; log in with the seeded local-only Alice account (`alice@relaydesk.test` / `password`). The unversioned API remains for Chapters 9–24 checkpoint exercises. Normal database seed data remains intentionally small, and the opt-in performance seeder adds exactly 20,000 deterministic tickets.
 
-Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 58](book/chapters/58-full-stack-debugging-method.md). See the repository-specific [testing strategy](docs/TESTING_STRATEGY.md). Part I's disposable browser is retained only as a learning artifact; the Laravel root now serves the compiled React application with a direct-navigation fallback.
+Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 60](book/chapters/60-capstone.md). See the repository-specific [testing strategy](docs/TESTING_STRATEGY.md). Part I's disposable browser is retained only as a learning artifact; the Laravel root now serves the compiled React application with a direct-navigation fallback.
+
+## Production-like delivery
+
+Chapter 59 uses the existing architecture rather than adding a cloud vendor. Copy `.env.production.example` to the Git-ignored `.env.production`, replace every `CHANGE_ME`, set a unique `APP_VERSION`, then run `make production-build production-deploy`. The image contains compiled React assets and optimized PHP dependencies; migration is an explicit release step, and the same image runs HTTP and queue-worker processes. `/api/health/live` reports process/version while `/api/health/ready` checks cheap database/cache round trips. See [From Repository to Production](book/chapters/59-from-repository-to-production.md) for TLS responsibility, configuration failures, CI, worker/dependency incidents, backup/restore, bad-release rollback, and verification.
+
+The local learning target serves HTTP on port 8080. A real internet edge must terminate TLS and manage certificates; do not expose Laravel's teaching server directly. Real secrets belong in the deployment platform's secret mechanism, never `.env.production.example`, an image, or Git.
 
 ## Frontend workflow
 

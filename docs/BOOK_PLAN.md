@@ -72,8 +72,8 @@ All tenant-owned tables carry `organization_id`, even where it is derivable, to 
 4. **Integrated application (35-43):** a versioned `/api/v1` REST/JSON contract joins the SPA and Laravel. Laravel Sanctum's first-party cookie/session approach is the default; policies enforce organization membership. Separate dev origins make CORS/CSRF observable, while the production image serves same-origin assets.
 5. **Production behaviors (44-51):** Redis is introduced only now for cache and queue. A repository-owned fake webhook service simulates latency/status/malformed payloads. Jobs, timeouts, retries, idempotency, structured logs, request IDs, and measurements are added around the modular monolith.
 6. **Proof (52-58):** the existing tests are organized by risk and evidence rather than a mandatory pyramid, Playwright covers two critical journeys, and a deterministic neutral profile drives the full-stack debugging capstone.
-7. **Delivery (59):** Docker Compose plus CI will build one deployable web image and one worker process from the same code. A production-like Compose profile is a teaching target, not a claim of a universal deployment platform.
-7. **Capstone (60):** invitations, role administration, and permission audit history integrate every boundary without changing the architecture.
+7. **Delivery (59):** Docker Compose plus CI build one deployable web image and one worker process from the same code. A production-like Compose target, health/readiness, verified backup/restore, and rollback/incident drills are implemented without claiming a universal platform.
+8. **Capstone (60):** the independent invitations, role administration, and permission audit brief integrates every boundary without changing the architecture; the repository supplies a report, rubric, adversarial evaluation strategy, and separate instructor approach rather than a default implementation.
 
 The target is a **modular monolith**, not microservices: one Laravel backend, one React client, one MySQL database, optional Redis, and one local fake dependency. Interfaces are added at volatile boundaries (email/webhook/time), not around every class.
 
@@ -445,6 +445,8 @@ Additional hard limits: no new runtime service without a chapter experiment and 
 
 ## 16. Implementation status
 
+The primary curriculum is complete through Chapter 60. Chapter 59 is backed by a versioned multi-stage image, explicit production-like Compose process model, safe configuration example, CI gate, liveness/readiness routes, migration/deployment verification, backup/restore scripts, and controlled rollback/incident exercises. Chapter 60 deliberately remains an independently implemented learner feature: its deliverable is a declared contract and evidence package assessed through the published rubric, with only a separate instructor strategy. This preserves the planned capstone outcome without turning it into Chapter 61-style scaffolding.
+
 Part VII (Chapters 52–58) is implemented. The accumulated PHPUnit and React suites are retained and organized by the evidence each level can provide. Focused commands separate unit, database/integration, API, component, and Playwright evidence. Two browser journeys cover persisted admin creation and restricted-viewer presentation. A neutral, development-only `debug-capstone` profile deterministically combines duplicate, stale-cache, and missing-background-work symptoms; the reader worksheet is separate from instructor root-cause notes and focused regression tests preserve the repairs.
 
 Part VI (Chapters 44–51) remains implemented. A tenant-keyed database cache makes stale copies and targeted invalidation inspectable. Ticket creation transactionally records an idempotency result and integration delivery, then dispatches durable database-queued work after commit. A repository-owned HTTP simulator supplies deterministic success, delay, transient/persistent failure, malformed, and 4xx modes. Explicit timeouts/retry classification, job exhaustion, correlation relationships, structured safe logs, an atomic unique-claim race, and relative performance evidence extend the same modular monolith.
@@ -455,4 +457,4 @@ This implementation deliberately uses Laravel's built-in session guard rather th
 
 ## 17. Recommended next task
 
-Implement **Chapter 59 only**: create the production-like image/profile and minimal automated delivery checks, then teach migration, release, rollback, and operational verification drills. Do not implement Chapter 60's independent capstone, invitations, role administration, or audit history.
+Perform a final repository audit rather than beginning another part: run every documented command on a clean supported machine, security-review authentication/secrets/redaction and the production-like boundary, pilot Chapters 59–60 with learners, check accessibility and prose/navigation consistency, and record reproducibility/flakiness evidence. Resolve the edition-level open decisions above before calling the repository internet-production-ready.

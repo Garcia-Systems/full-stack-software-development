@@ -1,0 +1,21 @@
+#!/bin/sh
+set -eu
+compose='docker compose --env-file .env.production -f compose.production.yaml'
+case "${1:-}" in
+  build) $compose build --pull ;;
+  deploy)
+    $compose run --rm web php artisan migrate --force
+    $compose up -d --no-build
+    "$0" verify
+    ;;
+  verify)
+    base="${APP_URL:-$(sed -n 's/^APP_URL=//p' .env.production)}"
+    curl -fsS "$base/api/health/live"
+    curl -fsS "$base/api/health/ready"
+    $compose ps
+    $compose exec -T web php artisan migrate:status
+    $compose exec -T web php artisan lab:resilience queue
+    ;;
+  stop) $compose down ;;
+  *) echo 'usage: scripts/production build|deploy|verify|stop' >&2; exit 2 ;;
+esac

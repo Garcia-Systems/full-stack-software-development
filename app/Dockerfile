@@ -17,5 +17,7 @@ FROM php:8.4-cli
 RUN docker-php-ext-install pdo_mysql
 WORKDIR /app
 COPY --from=dependencies /app /app
+ARG APP_VERSION=development
+ENV APP_VERSION=${APP_VERSION}
 EXPOSE 8080
-CMD ["sh", "-c", "php artisan migrate --force && php artisan db:seed --force --class=Database\\Seeders\\DatabaseSeeder >/dev/null 2>&1 || true; php artisan serve --host=0.0.0.0 --port=8080"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]

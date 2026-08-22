@@ -1,4 +1,6 @@
 .env
+.env.production
+backups/
 var/
 app/node_modules/
 app/public/build/

@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+file=${1:?usage: scripts/restore-verify backups/file.sql}
+[ -s "$file" ] || { echo 'backup is missing or empty' >&2; exit 2; }
+set -a; . ./.env.production; set +a
+c='docker compose --env-file .env.production -f compose.production.yaml'
+$c exec -T db mysql -uroot -p"$DB_ROOT_PASSWORD" -e 'DROP DATABASE IF EXISTS relaydesk_restore_verify; CREATE DATABASE relaydesk_restore_verify;'
+$c exec -T db mysql -uroot -p"$DB_ROOT_PASSWORD" relaydesk_restore_verify < "$file"
+tables=$($c exec -T db mysql -N -uroot -p"$DB_ROOT_PASSWORD" relaydesk_restore_verify -e 'SELECT COUNT(*) FROM information_schema.tables WHERE table_schema="relaydesk_restore_verify"')
+[ "$tables" -gt 0 ]
+$c exec -T db mysql -uroot -p"$DB_ROOT_PASSWORD" -e 'DROP DATABASE relaydesk_restore_verify;'
+echo "Restore verified in an isolated database ($tables tables)."

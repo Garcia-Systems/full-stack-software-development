@@ -1,4 +1,4 @@
-.PHONY: setup up down reset test test-backend test-unit test-integration test-api test-e2e frontend-install frontend-dev frontend-test frontend-check frontend-build smoke routes migrate-status logs db-shell db-labs worker queue-status cache-clear dependency-mode resilience-labs debug-capstone
+.PHONY: setup up down reset test test-backend test-unit test-integration test-api test-e2e frontend-install frontend-dev frontend-test frontend-check frontend-build smoke routes migrate-status logs db-shell db-labs worker queue-status cache-clear dependency-mode resilience-labs debug-capstone production-build production-deploy production-verify production-stop backup restore-verify
 setup:
 	./scripts/bootstrap
 up:
@@ -56,3 +56,16 @@ dependency-mode:
 	curl -fsS -X PUT -H 'Content-Type: application/json' -d '{"mode":"$(MODE)"}' http://localhost:$${DEPENDENCY_PORT:-8090}/mode
 resilience-labs:
 	docker compose exec web php artisan help lab:resilience
+production-build:
+	./scripts/production build
+production-deploy:
+	./scripts/production deploy
+production-verify:
+	./scripts/production verify
+production-stop:
+	./scripts/production stop
+backup:
+	./scripts/backup
+restore-verify:
+	@test -n "$(FILE)" || (echo "usage: make restore-verify FILE=backups/file.sql"; exit 2)
+	./scripts/restore-verify "$(FILE)"
