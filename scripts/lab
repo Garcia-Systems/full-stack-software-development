@@ -30,6 +30,13 @@ case "$action" in
       49) docker compose exec web php artisan lab:resilience race ;;
       50) docker compose exec web php artisan lab:resilience incident ;;
       51) docker compose exec web php artisan lab:resilience performance ;;
+      52) ./scripts/test ;;
+      53) docker compose exec web php artisan test tests/Unit ;;
+      54) docker compose exec web php artisan test tests/Feature/DatabaseIntegrityTest.php tests/Feature/ProjectTransactionTest.php ;;
+      55) docker compose exec web php artisan test tests/Feature/PartFiveApiTest.php tests/Feature/PartSixResilienceTest.php ;;
+      56) (cd app && npm run test:frontend) ;;
+      57) (cd app && npm run test:e2e) ;;
+      58) docker compose exec web php artisan test tests/Feature/CapstoneProfileTest.php ;;
       *) curl -fsS "http://localhost:${APP_PORT:-8080}/api/tickets" >/dev/null; echo "Chapter $chapter service check passed." ;;
     esac ;;
   *) echo 'action must be setup, verify, or reset' >&2; exit 2 ;;

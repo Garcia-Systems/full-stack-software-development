@@ -71,7 +71,8 @@ All tenant-owned tables carry `organization_id`, even where it is derivable, to 
 3. **Frontend client (25-34):** a Vite React/TypeScript SPA begins against deterministic fixtures and a mock adapter. Feature-oriented folders (`tickets`, `customers`, shared API/UI) keep boundaries visible without a heavy state framework.
 4. **Integrated application (35-43):** a versioned `/api/v1` REST/JSON contract joins the SPA and Laravel. Laravel Sanctum's first-party cookie/session approach is the default; policies enforce organization membership. Separate dev origins make CORS/CSRF observable, while the production image serves same-origin assets.
 5. **Production behaviors (44-51):** Redis is introduced only now for cache and queue. A repository-owned fake webhook service simulates latency/status/malformed payloads. Jobs, timeouts, retries, idempotency, structured logs, request IDs, and measurements are added around the modular monolith.
-6. **Proof and delivery (52-59):** the existing tests are organized into a deliberate pyramid, Playwright covers critical journeys, and Docker Compose plus CI build one deployable web image and one worker process from the same code. A production-like Compose profile is a teaching target, not a claim of a universal deployment platform.
+6. **Proof (52-58):** the existing tests are organized by risk and evidence rather than a mandatory pyramid, Playwright covers two critical journeys, and a deterministic neutral profile drives the full-stack debugging capstone.
+7. **Delivery (59):** Docker Compose plus CI will build one deployable web image and one worker process from the same code. A production-like Compose profile is a teaching target, not a claim of a universal deployment platform.
 7. **Capstone (60):** invitations, role administration, and permission audit history integrate every boundary without changing the architecture.
 
 The target is a **modular monolith**, not microservices: one Laravel backend, one React client, one MySQL database, optional Redis, and one local fake dependency. Interfaces are added at volatile boundaries (email/webhook/time), not around every class.
@@ -444,7 +445,9 @@ Additional hard limits: no new runtime service without a chapter experiment and 
 
 ## 16. Implementation status
 
-Part VI (Chapters 44–51) is implemented. A tenant-keyed database cache makes stale copies and targeted invalidation inspectable. Ticket creation transactionally records an idempotency result and integration delivery, then dispatches durable database-queued work after commit. A repository-owned HTTP simulator supplies deterministic success, delay, transient/persistent failure, malformed, and 4xx modes. Explicit timeouts/retry classification, job exhaustion, correlation relationships, structured safe logs, an atomic unique-claim race, and relative performance evidence extend the same modular monolith.
+Part VII (Chapters 52–58) is implemented. The accumulated PHPUnit and React suites are retained and organized by the evidence each level can provide. Focused commands separate unit, database/integration, API, component, and Playwright evidence. Two browser journeys cover persisted admin creation and restricted-viewer presentation. A neutral, development-only `debug-capstone` profile deterministically combines duplicate, stale-cache, and missing-background-work symptoms; the reader worksheet is separate from instructor root-cause notes and focused regression tests preserve the repairs.
+
+Part VI (Chapters 44–51) remains implemented. A tenant-keyed database cache makes stale copies and targeted invalidation inspectable. Ticket creation transactionally records an idempotency result and integration delivery, then dispatches durable database-queued work after commit. A repository-owned HTTP simulator supplies deterministic success, delay, transient/persistent failure, malformed, and 4xx modes. Explicit timeouts/retry classification, job exhaustion, correlation relationships, structured safe logs, an atomic unique-claim race, and relative performance evidence extend the same modular monolith.
 
 The implementation uses Laravel's database cache and queue rather than the plan's provisional Redis target. This is a deliberate infrastructure reduction: current educational volume does not justify another datastore, while MySQL tables let learners inspect cached copies, queue ownership, and failed work using established tools. Redis remains an architecture alternative, not a synonym for either concern.
 
@@ -452,4 +455,4 @@ This implementation deliberately uses Laravel's built-in session guard rather th
 
 ## 17. Recommended next task
 
-Implement **Part VII, Chapters 52–58 only**: organize the existing risk-based test suite, add focused database/API/component/end-to-end proof, and culminate in the dedicated full-stack debugging method. Do not begin Chapter 59 deployment or the Chapter 60 capstone.
+Implement **Chapter 59 only**: create the production-like image/profile and minimal automated delivery checks, then teach migration, release, rollback, and operational verification drills. Do not implement Chapter 60's independent capstone, invitations, role administration, or audit history.

@@ -1,6 +1,6 @@
 # Full-Stack Software Engineering: Build, Break, Debug, Deploy
 
-This repository accompanies an evidence-first book. Parts I–VI are executable. Part VI adds cached dashboard summaries, durable background work, a deterministic HTTP dependency, bounded failure policy, idempotent ticket creation, cross-worker race evidence, structured correlation, and measurement without adding a production-scale platform.
+This repository accompanies an evidence-first book. Parts I–VII are executable. Part VII organizes the accumulated tests as risk-based evidence, adds focused browser journeys, and culminates in a deterministic full-stack debugging capstone.
 
 ## Run RelayDesk
 
@@ -28,11 +28,16 @@ make frontend-dev          # Vite development server at http://localhost:5173
 make frontend-test         # behavior tests in jsdom
 make frontend-check        # TypeScript, ESLint, and Prettier checks
 make frontend-build        # production assets consumed by Laravel
+make test-unit             # isolated PHP business behavior
+make test-integration      # database, transaction, and concurrency evidence
+make test-api              # versioned HTTP contract and side effects
+make test-e2e              # two high-value Playwright journeys (stack must run)
+make debug-capstone        # activate Chapter 58's neutral defect profile
 ```
 
 Visit <http://localhost:8080> for the built SPA. It uses the versioned `/api/v1` JSON contract; log in with the seeded local-only Alice account (`alice@relaydesk.test` / `password`). The unversioned API remains for Chapters 9–24 checkpoint exercises. Normal database seed data remains intentionally small, and the opt-in performance seeder adds exactly 20,000 deterministic tickets.
 
-Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 51](book/chapters/51-performance-across-stack.md). Part I's disposable browser is retained only as a learning artifact; the Laravel root now serves the compiled React application with a direct-navigation fallback.
+Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 58](book/chapters/58-full-stack-debugging-method.md). See the repository-specific [testing strategy](docs/TESTING_STRATEGY.md). Part I's disposable browser is retained only as a learning artifact; the Laravel root now serves the compiled React application with a direct-navigation fallback.
 
 ## Frontend workflow
 

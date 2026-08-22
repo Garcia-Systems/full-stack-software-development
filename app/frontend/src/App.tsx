@@ -1,7 +1,7 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 import { customers } from "./data/fixtures";
 import { apiTicketRepository, sessionApi } from "./api/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTickets } from "./hooks/useTickets";
 import { CustomersPage } from "./pages/CustomersPage";
 import { DashboardPage } from "./pages/DashboardPage";
@@ -11,10 +11,13 @@ import { TicketsPage } from "./pages/TicketsPage";
 
 export function App() {
   const { state, load, create } = useTickets(apiTicketRepository);
-  const [identity, setIdentity] = useState<string>();
+  const [identity, setIdentity] = useState<{ name: string; role: string }>();
+  useEffect(() => {
+    sessionApi.current().then(setIdentity).catch(() => undefined);
+  }, []);
   async function login() {
     const result = await sessionApi.login("alice@relaydesk.test", "password");
-    setIdentity(result.user.name);
+    setIdentity({ name: result.user.name, role: result.user.role });
     load();
   }
   async function logout() {
@@ -33,10 +36,12 @@ export function App() {
           <NavLink to="/">Dashboard</NavLink>
           <NavLink to="/tickets">Tickets</NavLink>
           <NavLink to="/customers">Customers</NavLink>
-          <NavLink to="/tickets/new">New ticket</NavLink>
+          {identity?.role !== "viewer" && (
+            <NavLink to="/tickets/new">New ticket</NavLink>
+          )}
         </nav>
         {identity ? (
-          <button onClick={logout}>Log out {identity}</button>
+          <button onClick={logout}>Log out {identity.name}</button>
         ) : (
           <button onClick={login}>Log in as seeded Alice</button>
         )}

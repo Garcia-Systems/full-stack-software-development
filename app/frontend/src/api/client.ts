@@ -59,13 +59,30 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   return body as T;
 }
 export const sessionApi = {
-  login: (email: string, password: string) =>
-    request<{ user: { name: string } }>("/session", {
+  login: async (email: string, password: string) => {
+    const result = await request<{
+      user: { name: string; memberships: { role: string }[] };
+    }>("/session", {
       method: "POST",
       body: JSON.stringify({ email, password }),
-    }),
+    });
+    return {
+      user: {
+        name: result.user.name,
+        role: result.user.memberships[0]?.role ?? "viewer",
+      },
+    };
+  },
   logout: () => request<void>("/session", { method: "DELETE" }),
-  current: () => request<{ user: { name: string } }>("/session"),
+  current: async () => {
+    const result = await request<{
+      user: { name: string; memberships: { role: string }[] };
+    }>("/session");
+    return {
+      name: result.user.name,
+      role: result.user.memberships[0]?.role ?? "viewer",
+    };
+  },
 };
 export const customerApi = {
   async list(): Promise<Customer[]> {
