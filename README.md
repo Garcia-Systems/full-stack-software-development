@@ -1,6 +1,6 @@
 # Full-Stack Software Engineering: Build, Break, Debug, Deploy
 
-This repository accompanies an evidence-first book. Parts I and II are executable: the transparent PHP slice in Chapters 1–8 evolves into a Laravel/MySQL RelayDesk backend in Chapters 9–17.
+This repository accompanies an evidence-first book. Parts I–III are executable: the transparent PHP slice in Chapters 1–8 evolves into a Laravel/MySQL RelayDesk backend in Chapters 9–17, then Chapters 18–24 expose the SQL and database behavior below Eloquent.
 
 ## Run RelayDesk
 
@@ -16,11 +16,13 @@ make smoke                 # exercise live CRUD and validation
 make routes                # inspect dispatch
 make migrate-status        # inspect schema history
 make logs                  # follow structured logs/request IDs
+make db-shell              # open MySQL directly
+make db-labs               # list Part III evidence commands
 ```
 
-Visit <http://localhost:8080> or inspect `GET /api/tickets`. The small browser from Part I still creates a ticket, now through Laravel validation, Eloquent, and the relational schema. Seed data contains two organizations, three customers (including an inactive one), one project, and two tickets.
+Visit <http://localhost:8080> or inspect `GET /api/tickets`. The small browser from Part I still creates a ticket, now through Laravel validation, Eloquent, and the relational schema. Normal seed data remains intentionally small: two organizations, three customers (including an inactive one), one project, and two tickets. The opt-in performance seeder adds exactly 20,000 deterministic tickets.
 
-Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 17](book/chapters/17-errors-and-exceptions.md). Part I commands are preserved conceptually; its disposable router was intentionally replaced as forecast by Chapter 8 and the [book plan](docs/BOOK_PLAN.md).
+Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 24](book/chapters/24-data-integrity.md). Part I commands are preserved conceptually; its disposable router was intentionally replaced as forecast by Chapter 8 and the [book plan](docs/BOOK_PLAN.md).
 
 ## Reproducible state and evidence
 
@@ -29,11 +31,19 @@ Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and foll
 ```sh
 docker compose exec web php artisan migrate:status
 docker compose exec db mysql -urelaydesk -prelaydesk relaydesk -e 'SHOW TABLES;'
+docker compose exec db mysql -urelaydesk -prelaydesk relaydesk -e 'SHOW CREATE TABLE tickets\G'
+docker compose exec db mysql -urelaydesk -prelaydesk relaydesk -e 'SHOW INDEX FROM tickets;'
+docker compose exec web php artisan lab:database plan
+docker compose exec web php artisan lab:database integrity
 docker compose exec web php artisan test
 docker compose logs -f web
 ```
 
 Send `X-Request-ID` with curl; safe IDs cross Laravel middleware into the response and structured log context. Local labs use explicit requests listed in `labs/catalog.yaml`, never hidden production behavior.
+
+## Part III database workflow
+
+Run `make reset` for the small fixture, and opt into the repeatable workload with `docker compose exec web php artisan lab:database seed-performance`. Use `php artisan help lab:database` to inspect SQL/bindings, count relationship queries, compare an index and query plan, inject a transaction failure, replay a deterministic lost update, and list constraints. Index experiments may temporarily drop the teaching index; run `php artisan lab:database index` or `make reset` to restore the migrated schema.
 
 ## Troubleshooting
 

@@ -4,11 +4,22 @@ set -eu
 chapter=$(printf '%d' "${2:-0}" 2>/dev/null) || exit 2
 action=${3:-}
 case "$action" in
-  setup) echo "Chapter $chapter uses the normal tiny dataset. See book/chapters/$(printf '%02d' "$chapter")-*.md." ;;
+  setup)
+    case "$chapter" in
+      20|21|24) docker compose exec web php artisan lab:database seed-performance ;;
+      *) echo "Chapter $chapter uses the normal tiny dataset. See book/chapters/$(printf '%02d' "$chapter")-*.md." ;;
+    esac ;;
   reset) ./scripts/reset ;;
   verify)
     case "$chapter" in
       1|2|4|8|9|10|11|12|13|14|15|16|17) ./scripts/smoke ;;
+      18) docker compose exec web php artisan lab:database sql ;;
+      19) docker compose exec web php artisan lab:database relationships ;;
+      20) docker compose exec web php artisan lab:database index ;;
+      21) docker compose exec web php artisan lab:database plan ;;
+      22) docker compose exec web php artisan test --filter=ProjectTransactionTest ;;
+      23) docker compose exec web php artisan test --filter=OptimisticConcurrencyTest ;;
+      24) docker compose exec web php artisan lab:database integrity ;;
       *) curl -fsS "http://localhost:${APP_PORT:-8080}/api/tickets" >/dev/null; echo "Chapter $chapter service check passed." ;;
     esac ;;
   *) echo 'action must be setup, verify, or reset' >&2; exit 2 ;;

@@ -64,3 +64,38 @@ faults:
     activate: "run the five request-ID cases in Chapter 17"
     boundary: multiple-backend-boundaries
     reset: "make reset"
+  - chapter: 18
+    name: sql-structure-and-bindings
+    activate: "php artisan lab:database sql"
+    boundary: eloquent-sql-database
+    reset: automatic-rollback
+  - chapter: 19
+    name: observable-n-plus-one
+    activate: "php artisan lab:database relationships"
+    boundary: relationship-loading
+    reset: eager-loading-demonstrated-in-same-command
+  - chapter: 20
+    name: missing-workload-index
+    activate: "php artisan lab:database index --without-index"
+    boundary: database-access-path
+    reset: "php artisan lab:database index"
+  - chapter: 21
+    name: slow-dashboard-plan
+    activate: "php artisan lab:database plan --without-index"
+    boundary: mysql-query-plan
+    reset: "php artisan lab:database index"
+  - chapter: 22
+    name: partial-project-provision
+    activate: "php artisan lab:database transaction --unsafe --fail"
+    boundary: transaction-atomicity
+    reset: "make reset"
+  - chapter: 23
+    name: deterministic-lost-update
+    activate: "php artisan lab:database concurrency"
+    boundary: concurrent-persistence
+    reset: "make reset"
+  - chapter: 24
+    name: database-incident
+    activate: "php artisan lab:database debug"
+    boundary: multiple-database-boundaries
+    reset: "make reset"
