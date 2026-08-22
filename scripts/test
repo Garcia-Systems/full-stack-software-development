@@ -2,6 +2,9 @@
 set -eu
 find app -path 'app/vendor' -prune -o -name '*.php' -print -exec php -l {} \; | tee /tmp/relaydesk-php-lint
 ./scripts/check-docs
+if command -v npm >/dev/null 2>&1 && [ -d app/node_modules ]; then
+  (cd app && npm run typecheck && npm run lint && npm run format:check && npm run test:frontend && npm run build)
+else echo 'WARNING: frontend dependencies are absent; run make frontend-install.' >&2; fi
 if [ -x app/vendor/bin/phpunit ]; then (cd app && php artisan test); else echo 'WARNING: app/vendor is absent; host PHPUnit skipped (Docker image installs it).' >&2; fi
 if command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then
   docker compose down -v

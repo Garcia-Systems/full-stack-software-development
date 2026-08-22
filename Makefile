@@ -1,4 +1,4 @@
-.PHONY: setup up down reset test smoke routes migrate-status logs db-shell db-labs
+.PHONY: setup up down reset test frontend-install frontend-dev frontend-test frontend-check frontend-build smoke routes migrate-status logs db-shell db-labs
 setup:
 	./scripts/bootstrap
 up:
@@ -9,6 +9,16 @@ reset:
 	./scripts/reset
 test:
 	./scripts/test
+frontend-install:
+	cd app && npm install
+frontend-dev:
+	cd app && npm run dev
+frontend-test:
+	cd app && npm run test:frontend
+frontend-check:
+	cd app && npm run typecheck && npm run lint && npm run format:check
+frontend-build:
+	cd app && npm run build
 smoke:
 	./scripts/smoke
 routes:

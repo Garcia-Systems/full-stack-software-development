@@ -12,6 +12,9 @@ case "$action" in
   reset) ./scripts/reset ;;
   verify)
     case "$chapter" in
+      25) node --check app/frontend/labs/browser-filter.js ;;
+      26) node --check app/frontend/labs/async-race.js ;;
+      27|28|29|30|31|32|33|34) (cd app && npm run typecheck && npm run test:frontend) ;;
       1|2|4|8|9|10|11|12|13|14|15|16|17) ./scripts/smoke ;;
       18) docker compose exec web php artisan lab:database sql ;;
       19) docker compose exec web php artisan lab:database relationships ;;

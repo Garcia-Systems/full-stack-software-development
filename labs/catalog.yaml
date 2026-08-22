@@ -1,4 +1,39 @@
 faults:
+  - chapter: 25
+    name: wrong-event-name
+    activate: "change input listener to change in browser-filter.js"
+    boundary: browser-event-handler
+    reset: "restore input event"
+  - chapter: 26
+    name: stale-async-result
+    activate: "remove latestRequest guard in async-race.js"
+    boundary: browser-async-timing
+    reset: "restore latest-intent guard"
+  - chapter: 27
+    name: typescript-contract-mismatch
+    activate: "uncomment heading(wrongShape) and run npm run typecheck"
+    boundary: frontend-type-contract
+    reset: "restore explicit displayName-to-name mapping"
+  - chapter: 29
+    name: wrong-customer-prop
+    activate: "pass customers[0] to every TicketCard"
+    boundary: react-props
+    reset: "look up customer by ticket.customerId"
+  - chapter: 31
+    name: stale-effect
+    activate: "remove selected from effect dependencies"
+    boundary: external-synchronization
+    reset: "restore dependency and cleanup"
+  - chapter: 32
+    name: invalid-form-submission
+    activate: "remove the return after field validation"
+    boundary: frontend-form-state
+    reset: "restore validation guard"
+  - chapter: 33
+    name: direct-route-refresh
+    activate: "serve the SPA shell only at slash"
+    boundary: browser-navigation-versus-client-route
+    reset: "restore Laravel SPA fallback"
   - chapter: 2
     name: response-field
     activate: "curl -H 'X-Lab-Fault: response-field' http://localhost:8080/api/tickets"

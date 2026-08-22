@@ -1,4 +1,6 @@
 .env
 var/
+app/node_modules/
+app/public/build/
 __pycache__/
 *.pyc
