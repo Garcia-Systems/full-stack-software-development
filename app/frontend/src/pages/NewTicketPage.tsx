@@ -9,11 +9,10 @@ export function NewTicketPage({
 }) {
   return (
     <section>
-      <p className="eyebrow">Local draft</p>
+      <p className="eyebrow">Authenticated operation</p>
       <h1>Create a ticket</h1>
       <p>
-        This Part IV adapter saves to deterministic in-memory fixtures—not
-        Laravel. Part V will replace that boundary.
+        The typed API client sends this representation to Laravel and renders the persisted response.
       </p>
       <TicketForm customers={customers} onSubmit={create} />
     </section>

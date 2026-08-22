@@ -26,7 +26,7 @@ export function TicketForm({
       return;
     }
     setPending(true);
-    setMessage("Saving locally…");
+    setMessage("Sending request…");
     try {
       await onSubmit({
         subject: subject.trim(),
@@ -34,7 +34,7 @@ export function TicketForm({
         priority,
       });
       setSubject("");
-      setMessage("Ticket added to this browser session.");
+      setMessage("Ticket added from the server response.");
     } catch {
       setMessage("The ticket could not be saved. Try again.");
     } finally {

@@ -134,3 +134,9 @@ faults:
     activate: "php artisan lab:database debug"
     boundary: multiple-database-boundaries
     reset: "make reset"
+  - id: part-v-boundary-failures
+    chapters: [36, 37, 39, 40, 41, 43]
+    safety: development-only-disabled-outside-local-testing
+    scenarios: [wrong-field-name, wrong-method, validation, unauthenticated, forbidden, server-error, cors-origin]
+    activate: "Use the documented request or X-RelayDesk-Lab header with LAB_FAULTS=true"
+    reset: "make reset"

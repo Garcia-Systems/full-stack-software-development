@@ -1,0 +1,5 @@
+import { afterEach, expect, test, vi } from "vitest";
+import { apiTicketRepository } from "../src/api/client";
+afterEach(()=>vi.unstubAllGlobals());
+test("maps the external camelCase representation without any",async()=>{vi.stubGlobal("fetch",vi.fn().mockResolvedValue(new Response(JSON.stringify({data:[{id:7,customerId:2,subject:"API proof",status:"open",priority:"high",version:1,createdAt:"2026-01-01T00:00:00.000Z"}],requestId:"test-7"}),{status:200,headers:{"Content-Type":"application/json"}})));const items=await apiTicketRepository.list();expect(items[0].customerId).toBe(2);expect(fetch).toHaveBeenCalledWith(expect.stringContaining("organization_id=1"),expect.objectContaining({credentials:"include"}));});
+test("distinguishes an HTTP validation response from network failure",async()=>{vi.stubGlobal("fetch",vi.fn().mockResolvedValue(new Response(JSON.stringify({error:{type:"validation",message:"Invalid",fields:{subject:["Required"]}}}),{status:422,headers:{"Content-Type":"application/json"}})));await expect(apiTicketRepository.create({customerId:1,subject:"",priority:"normal"})).rejects.toMatchObject({type:"validation",status:422});});
