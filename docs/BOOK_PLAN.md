@@ -444,7 +444,7 @@ Additional hard limits: no new runtime service without a chapter experiment and 
 
 ## 16. Implementation status
 
-Parts II and III are implemented through Chapter 24 with Laravel 12, MySQL 8.4, PHPUnit, the four initial RelayDesk domain entities, deterministic small and performance fixtures, SQL/query-plan inspection, relationship query counting, transactions, optimistic concurrency, and database constraints. Composite tenant parentage is now enforced below Laravel. Authorization remains Chapters 40–41.
+Parts II–IV are implemented through Chapter 34. Laravel 12/MySQL 8.4 retains the backend and database labs. The browser path now progresses through plain DOM/event and deterministic timing labs, a real TypeScript mismatch, React 19 state/render reasoning, business components, effects as external synchronization, a validated ticket form, React Router 7 direct-load behavior, and a feature-oriented fixture adapter. Vitest/Testing Library cover behavior. The adapter intentionally does not call Laravel: API design/integration, authentication, authorization, and CORS remain Chapters 35–43.
 
 ## 17. Recommended next task
 

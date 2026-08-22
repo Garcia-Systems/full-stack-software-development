@@ -1,6 +1,6 @@
 # Full-Stack Software Engineering: Build, Break, Debug, Deploy
 
-This repository accompanies an evidence-first book. Parts I–III are executable: the transparent PHP slice in Chapters 1–8 evolves into a Laravel/MySQL RelayDesk backend in Chapters 9–17, then Chapters 18–24 expose the SQL and database behavior below Eloquent.
+This repository accompanies an evidence-first book. Parts I–IV are executable: the transparent PHP slice evolves into Laravel/MySQL, exposes the database below Eloquent, then grows from browser JavaScript into a fixture-backed React/TypeScript frontend. The real API integration intentionally waits for Part V.
 
 ## Run RelayDesk
 
@@ -18,11 +18,22 @@ make migrate-status        # inspect schema history
 make logs                  # follow structured logs/request IDs
 make db-shell              # open MySQL directly
 make db-labs               # list Part III evidence commands
+make frontend-install      # install the pinned Node dependency tree
+make frontend-dev          # Vite development server at http://localhost:5173
+make frontend-test         # behavior tests in jsdom
+make frontend-check        # TypeScript, ESLint, and Prettier checks
+make frontend-build        # production assets consumed by Laravel
 ```
 
-Visit <http://localhost:8080> or inspect `GET /api/tickets`. The small browser from Part I still creates a ticket, now through Laravel validation, Eloquent, and the relational schema. Normal seed data remains intentionally small: two organizations, three customers (including an inactive one), one project, and two tickets. The opt-in performance seeder adds exactly 20,000 deterministic tickets.
+Visit <http://localhost:8080> for the built SPA or inspect `GET /api/tickets` independently. The Part IV SPA deliberately reads local typed fixtures; this prevents Part IV from pre-empting the API-contract curriculum. Normal database seed data remains intentionally small, and the opt-in performance seeder adds exactly 20,000 deterministic tickets.
 
-Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 24](book/chapters/24-data-integrity.md). Part I commands are preserved conceptually; its disposable router was intentionally replaced as forecast by Chapter 8 and the [book plan](docs/BOOK_PLAN.md).
+Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 34](book/chapters/34-frontend-architecture.md). Part I's disposable browser is retained only as a learning artifact; the Laravel root now serves the compiled React application with a direct-navigation fallback.
+
+## Frontend workflow
+
+Use Node 20.19 or newer (the Docker build uses Node 20). For fast browser feedback, run `make up` for Laravel/MySQL and `make frontend-dev` in another terminal, then use the Vite URL. The frontend uses deterministic in-memory customers/tickets and deterministic delays; it does not require the API to teach state and timing. Run `make frontend-check frontend-test frontend-build` before committing. A reload resets fixture mutations.
+
+The only runtime libraries added are React/React DOM and React Router: React owns rendering/state, and multiple justified URL-addressable pages justify routing. Vite/TypeScript, Testing Library/Vitest, ESLint, and Prettier are development/build tools. No global state, form, UI, or data-fetching library is used.
 
 ## Reproducible state and evidence
 

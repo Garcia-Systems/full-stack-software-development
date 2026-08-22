@@ -1,6 +1,6 @@
 # 24. Data Integrity Below the Application
 
-[Previous](23-concurrency.md) · [Book home](../../README.md)
+[Previous](23-concurrency.md) · [Next](25-javascript-in-the-browser.md)
 
 ```mermaid
 flowchart LR
