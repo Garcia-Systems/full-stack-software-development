@@ -5,6 +5,6 @@ export default defineConfig({
   plugins: [react()],
   root: "frontend",
   build: { outDir: "../public/build", emptyOutDir: true },
-  server: { port: 5173 },
+  server: { port: 5173, proxy: { "/api": "http://localhost:8080" } },
   test: { environment: "jsdom", setupFiles: "./test/setup.ts" },
 });

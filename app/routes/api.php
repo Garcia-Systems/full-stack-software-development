@@ -12,3 +12,12 @@ Route::get('/customers', [CustomerController::class, 'index']);
 Route::post('/customers/{customer}/projects', [ProjectController::class, 'store'])->whereNumber('customer');
 Route::patch('/tickets/{ticket}/status', [TicketController::class, 'transition'])->whereNumber('ticket');
 Route::get('/lab/fail', [TicketController::class, 'controlledFailure']);
+
+// Part V's versioned external contract; earlier unversioned routes remain as chapter checkpoints.
+Route::options('/v1/{path}', fn()=>response('',204))->where('path','.*');
+Route::post('/v1/session', [\App\Http\Controllers\AuthController::class,'login']);
+Route::middleware('api.auth')->prefix('v1')->group(function():void {
+ Route::get('/session',[\App\Http\Controllers\AuthController::class,'me']); Route::delete('/session',[\App\Http\Controllers\AuthController::class,'logout']);
+ Route::get('/tickets',[\App\Http\Controllers\ApiTicketController::class,'index']); Route::post('/tickets',[\App\Http\Controllers\ApiTicketController::class,'store']); Route::get('/tickets/{ticket}',[\App\Http\Controllers\ApiTicketController::class,'show'])->whereNumber('ticket'); Route::delete('/tickets/{ticket}',[\App\Http\Controllers\ApiTicketController::class,'destroy'])->whereNumber('ticket');
+ Route::get('/customers',function(\Illuminate\Http\Request $r){$allowed=\App\Models\Membership::where(['user_id'=>$r->user()->id,'organization_id'=>$r->integer('organization_id'),'status'=>'active'])->exists();abort_unless($allowed,403);$items=\App\Models\Customer::where('organization_id',$r->integer('organization_id'))->orderBy('id')->get();return response()->json(['data'=>\App\Http\Resources\CustomerResource::collection($items)->resolve(),'requestId'=>$r->attributes->get('request_id')]);});
+});

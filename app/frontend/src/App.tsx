@@ -1,6 +1,7 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 import { customers } from "./data/fixtures";
-import { fixtureTicketRepository } from "./data/ticketRepository";
+import { apiTicketRepository, sessionApi } from "./api/client";
+import { useState } from "react";
 import { useTickets } from "./hooks/useTickets";
 import { CustomersPage } from "./pages/CustomersPage";
 import { DashboardPage } from "./pages/DashboardPage";
@@ -9,13 +10,16 @@ import { TicketDetailPage } from "./pages/TicketDetailPage";
 import { TicketsPage } from "./pages/TicketsPage";
 
 export function App() {
-  const { state, load, create } = useTickets(fixtureTicketRepository);
+  const { state, load, create } = useTickets(apiTicketRepository);
+  const [identity, setIdentity] = useState<string>();
+  async function login() { const result = await sessionApi.login("alice@relaydesk.test", "password"); setIdentity(result.user.name); load(); }
+  async function logout() { await sessionApi.logout(); setIdentity(undefined); load(); }
   const tickets = state.status === "success" ? state.data : [];
   return (
     <div className="shell">
       <header>
         <a className="brand" href="/">
-          RelayDesk <small>Part IV</small>
+          RelayDesk <small>Part V</small>
         </a>
         <nav aria-label="Primary">
           <NavLink to="/">Dashboard</NavLink>
@@ -23,6 +27,7 @@ export function App() {
           <NavLink to="/customers">Customers</NavLink>
           <NavLink to="/tickets/new">New ticket</NavLink>
         </nav>
+        {identity ? <button onClick={logout}>Log out {identity}</button> : <button onClick={login}>Log in as seeded Alice</button>}
       </header>
       <main>
         {state.status === "loading" && (
@@ -75,7 +80,7 @@ export function App() {
         )}
       </main>
       <footer>
-        Fixture-backed learning client · no authentication or production API yet
+        Session-authenticated React → HTTP → Laravel → MySQL
       </footer>
     </div>
   );

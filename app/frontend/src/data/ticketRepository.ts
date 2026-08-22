@@ -5,6 +5,7 @@ export interface TicketRepository {
   list(options?: {
     delay?: number;
     fail?: boolean;
+    lab?: string;
     signal?: AbortSignal;
   }): Promise<Ticket[]>;
   create(draft: DraftTicket): Promise<Ticket>;

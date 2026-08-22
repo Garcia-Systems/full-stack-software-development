@@ -1,6 +1,6 @@
 # Full-Stack Software Engineering: Build, Break, Debug, Deploy
 
-This repository accompanies an evidence-first book. Parts I–IV are executable: the transparent PHP slice evolves into Laravel/MySQL, exposes the database below Eloquent, then grows from browser JavaScript into a fixture-backed React/TypeScript frontend. The real API integration intentionally waits for Part V.
+This repository accompanies an evidence-first book. Parts I–V are executable: the transparent PHP slice evolves into Laravel/MySQL, exposes the database below Eloquent, then grows from browser JavaScript into a fixture-backed React/TypeScript frontend. Part V now connects and secures the browser-to-database boundary.
 
 ## Run RelayDesk
 
@@ -8,7 +8,7 @@ Prerequisites are Git, `curl`, a browser, Docker Engine/Compose v2, and approxim
 
 ```sh
 make setup                 # validate tooling and create .env
-make up                    # build Laravel + MySQL and wait for /api/tickets
+make up                    # build Laravel + MySQL and wait for the Laravel API
 make test                  # syntax, PHPUnit, docs, clean-database live smoke
 make reset                 # delete the volume, migrate, and seed known data
 make down                  # stop containers but preserve rows
@@ -25,13 +25,13 @@ make frontend-check        # TypeScript, ESLint, and Prettier checks
 make frontend-build        # production assets consumed by Laravel
 ```
 
-Visit <http://localhost:8080> for the built SPA or inspect `GET /api/tickets` independently. The Part IV SPA deliberately reads local typed fixtures; this prevents Part IV from pre-empting the API-contract curriculum. Normal database seed data remains intentionally small, and the opt-in performance seeder adds exactly 20,000 deterministic tickets.
+Visit <http://localhost:8080> for the built SPA. It uses the versioned `/api/v1` JSON contract; log in with the seeded local-only Alice account (`alice@relaydesk.test` / `password`). The unversioned API remains for Chapters 9–24 checkpoint exercises. Normal database seed data remains intentionally small, and the opt-in performance seeder adds exactly 20,000 deterministic tickets.
 
-Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 34](book/chapters/34-frontend-architecture.md). Part I's disposable browser is retained only as a learning artifact; the Laravel root now serves the compiled React application with a direct-navigation fallback.
+Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 43](book/chapters/43-cors-browser-security.md). Part I's disposable browser is retained only as a learning artifact; the Laravel root now serves the compiled React application with a direct-navigation fallback.
 
 ## Frontend workflow
 
-Use Node 20.19 or newer (the Docker build uses Node 20). For fast browser feedback, run `make up` for Laravel/MySQL and `make frontend-dev` in another terminal, then use the Vite URL. The frontend uses deterministic in-memory customers/tickets and deterministic delays; it does not require the API to teach state and timing. Run `make frontend-check frontend-test frontend-build` before committing. A reload resets fixture mutations.
+Use Node 20.19 or newer (the Docker build uses Node 20). For fast browser feedback, run `make up` for Laravel/MySQL and `make frontend-dev` in another terminal, then use the Vite URL. The frontend uses a small typed fetch client with session credentials. Vite proxies `/api` to Laravel; direct-origin CORS exercises use `VITE_API_URL=http://localhost:8080/api/v1`. Deterministic failure headers require local `LAB_FAULTS=true`. Run `make frontend-check frontend-test frontend-build` before committing. A reload resets fixture mutations.
 
 The only runtime libraries added are React/React DOM and React Router: React owns rendering/state, and multiple justified URL-addressable pages justify routing. Vite/TypeScript, Testing Library/Vitest, ESLint, and Prettier are development/build tools. No global state, form, UI, or data-fetching library is used.
 

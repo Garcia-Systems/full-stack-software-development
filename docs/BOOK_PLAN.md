@@ -444,8 +444,10 @@ Additional hard limits: no new runtime service without a chapter experiment and 
 
 ## 16. Implementation status
 
-Parts II–IV are implemented through Chapter 34. Laravel 12/MySQL 8.4 retains the backend and database labs. The browser path now progresses through plain DOM/event and deterministic timing labs, a real TypeScript mismatch, React 19 state/render reasoning, business components, effects as external synchronization, a validated ticket form, React Router 7 direct-load behavior, and a feature-oriented fixture adapter. Vitest/Testing Library cover behavior. The adapter intentionally does not call Laravel: API design/integration, authentication, authorization, and CORS remain Chapters 35–43.
+Part V (Chapters 35–43) is implemented. The integrated client uses a lightweight typed fetch boundary and a versioned `/api/v1` contract. Laravel's session guard supplies first-party cookie identity; active organization memberships with `admin`, `agent`, and `viewer` roles enforce server-side tenant access. Explicit Laravel resources own the camel-case representation. Local/testing-only headers provide deterministic delay, empty, and safe unexpected-failure evidence, while an origin allowlist demonstrates credentialed CORS without a wildcard. The earlier unversioned endpoints remain only so Chapters 9–24 commands continue to work.
+
+This implementation deliberately uses Laravel's built-in session guard rather than adding Sanctum: the repository needs no token features, and the same stateful identity/cookie mechanics remain visible. Before public deployment, add framework CSRF protection/Sanctum's SPA flow, login rate limiting, HTTPS-only cookies, and a production session store. Those are recorded risks, not claims that this local teaching stack is Internet-ready.
 
 ## 17. Recommended next task
 
-The next task should implement **Part IV, Chapters 25–34 only**: a fixture-backed Vite React/TypeScript client that teaches browser data, asynchronous control, types, rendering, components, state, effects, forms, routing, and feature-oriented architecture. It must not integrate the final Laravel API/authentication contract from Chapters 35 onward.
+Implement **Part VI, Chapters 44–51 only**: caching/invalidation, queues/background jobs, a repository-owned fake external API, resilience patterns, retry/idempotency, structured logging/metrics, performance reasoning, and advanced race-condition handling. Do not begin testing/deployment Chapters 52–59 or the capstone.
