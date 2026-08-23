@@ -3,8 +3,9 @@ from pathlib import Path
 import re, sys
 root = Path(__file__).resolve().parents[1]
 errors = []
+excluded_trees = {'.git', 'node_modules', 'vendor'}
 for path in root.rglob('*.md'):
-    if '.git' in path.parts: continue
+    if excluded_trees.intersection(path.relative_to(root).parts): continue
     text = path.read_text()
     for target in re.findall(r'\[[^]]*\]\(([^)#]+)(?:#[^)]+)?\)', text):
         if '://' in target or target.startswith('mailto:'): continue
