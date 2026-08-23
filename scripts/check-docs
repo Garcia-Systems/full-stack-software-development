@@ -4,9 +4,15 @@ import re, sys
 root = Path(__file__).resolve().parents[1]
 errors = []
 excluded_trees = {'.git', 'node_modules', 'vendor'}
+chapters = sorted((root / 'book/chapters').glob('*.md'))
+numbers = [int(path.name[:2]) for path in chapters if re.match(r'^\d{2}-', path.name)]
+if numbers != list(range(1, 61)):
+    errors.append(f'chapter inventory is {numbers!r}; expected every chapter 1 through 60 exactly once')
 for path in root.rglob('*.md'):
     if excluded_trees.intersection(path.relative_to(root).parts): continue
     text = path.read_text()
+    if text.count('```mermaid') > text.count('```') // 2:
+        errors.append(f'{path.relative_to(root)}: unclosed Mermaid fence')
     for target in re.findall(r'\[[^]]*\]\(([^)#]+)(?:#[^)]+)?\)', text):
         if '://' in target or target.startswith('mailto:'): continue
         resolved = (path.parent / target).resolve()
