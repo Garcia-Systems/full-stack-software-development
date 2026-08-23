@@ -1,4 +1,4 @@
-.PHONY: setup up down reset test test-backend test-unit test-integration test-api test-e2e frontend-install frontend-dev frontend-test frontend-check frontend-build smoke routes migrate-status logs db-shell db-labs worker queue-status cache-clear dependency-mode resilience-labs debug-capstone
+.PHONY: setup up down reset test test-backend test-unit test-integration test-api test-e2e frontend-install frontend-dev frontend-test frontend-check frontend-build smoke routes migrate-status logs db-shell db-labs worker queue-status cache-clear dependency-mode resilience-labs debug-capstone production-build production-deploy production-verify production-stop backup restore-verify
 setup:
 	./scripts/bootstrap
 up:
@@ -10,13 +10,13 @@ reset:
 test:
 	./scripts/test
 test-backend:
-	docker compose exec web php artisan test
+	docker compose exec web vendor/bin/phpunit
 test-unit:
-	docker compose exec web php artisan test tests/Unit
+	docker compose exec web vendor/bin/phpunit tests/Unit
 test-integration:
-	docker compose exec web php artisan test tests/Feature/DatabaseIntegrityTest.php tests/Feature/ProjectTransactionTest.php tests/Feature/OptimisticConcurrencyTest.php tests/Feature/RelationshipQueryTest.php
+	docker compose exec web vendor/bin/phpunit tests/Feature/DatabaseIntegrityTest.php tests/Feature/ProjectTransactionTest.php tests/Feature/OptimisticConcurrencyTest.php tests/Feature/RelationshipQueryTest.php
 test-api:
-	docker compose exec web php artisan test tests/Feature/PartFiveApiTest.php tests/Feature/PartSixResilienceTest.php
+	docker compose exec web vendor/bin/phpunit tests/Feature/PartFiveApiTest.php tests/Feature/PartSixResilienceTest.php
 test-e2e:
 	cd app && npm run test:e2e
 debug-capstone:
@@ -56,3 +56,16 @@ dependency-mode:
 	curl -fsS -X PUT -H 'Content-Type: application/json' -d '{"mode":"$(MODE)"}' http://localhost:$${DEPENDENCY_PORT:-8090}/mode
 resilience-labs:
 	docker compose exec web php artisan help lab:resilience
+production-build:
+	./scripts/production build
+production-deploy:
+	./scripts/production deploy
+production-verify:
+	./scripts/production verify
+production-stop:
+	./scripts/production stop
+backup:
+	./scripts/backup
+restore-verify:
+	@test -n "$(FILE)" || (echo "usage: make restore-verify FILE=backups/file.sql"; exit 2)
+	./scripts/restore-verify "$(FILE)"

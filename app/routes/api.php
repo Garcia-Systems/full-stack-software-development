@@ -3,6 +3,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
+Route::get('/health/live', [\App\Http\Controllers\HealthController::class, 'live']);
+Route::get('/health/ready', [\App\Http\Controllers\HealthController::class, 'ready']);
 Route::get('/tickets', [TicketController::class, 'index']);
 Route::post('/tickets', [TicketController::class, 'store']);
 Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->whereNumber('ticket');

@@ -25,7 +25,8 @@ test("maps the external camelCase representation without any", async () => {
     ),
   );
   const items = await apiTicketRepository.list();
-  expect(items[0].customerId).toBe(2);
+  expect(items).toHaveLength(1);
+  expect(items).toEqual([expect.objectContaining({ customerId: 2 })]);
   expect(fetch).toHaveBeenCalledWith(
     expect.stringContaining("organization_id=1"),
     expect.objectContaining({ credentials: "include" }),

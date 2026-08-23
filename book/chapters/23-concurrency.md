@@ -19,7 +19,7 @@ sequenceDiagram
 ```sh
 make reset
 docker compose exec web php artisan lab:database concurrency
-docker compose exec web php artisan test --filter=OptimisticConcurrencyTest
+docker compose exec web vendor/bin/phpunit --filter=OptimisticConcurrencyTest
 ```
 
 The first phase deliberately saves detached Eloquent snapshots. B's later update silently overwrites A. Both local code paths were valid; their interleaving was not.

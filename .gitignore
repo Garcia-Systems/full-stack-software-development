@@ -1,7 +1,10 @@
 .env
+.env.production
+backups/
 var/
 app/node_modules/
 app/public/build/
+app/*.tsbuildinfo
 dependency-simulator/.state.json
 __pycache__/
 *.pyc

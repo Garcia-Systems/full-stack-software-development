@@ -35,7 +35,7 @@ Putting the status condition in `ON` preserves customers with zero open work. Pu
 
 ```sh
 docker compose exec web php artisan lab:database relationships
-docker compose exec web php artisan test --filter=RelationshipQueryTest
+docker compose exec web vendor/bin/phpunit --filter=RelationshipQueryTest
 ```
 
 Lazy access performs `1 + N` queries. `Customer::with('tickets')->get()` performs two queries: one for customers and one `WHERE IN (...)` for all matching tickets. Eager loading is not an SQL join and does not always need to be replaced by one. Use eager loading when PHP needs related objects; use an aggregate join when the database should return a report shape. [Laravel documents both lazy and eager loading](https://laravel.com/docs/12.x/eloquent-relationships#eager-loading).

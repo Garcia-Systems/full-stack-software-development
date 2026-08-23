@@ -1,6 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
+import { expect, test } from "vitest";
 import { App } from "../src/App";
 
 test("filters rendered tickets from user input", async () => {

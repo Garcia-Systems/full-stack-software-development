@@ -17,7 +17,7 @@ At each boundary record: event/state; method and URL; request headers, cookie, a
 ## Controlled lab and verification
 
 ```sh
-docker compose exec web php artisan test --filter=PartFiveApiTest
+docker compose exec web vendor/bin/phpunit --filter=PartFiveApiTest
 ```
 
 Predict the observation first, run it, save the status/body and `X-Request-ID`, then inspect the matching log and database row. Reset with `make reset`; never use lab controls outside local/testing.
