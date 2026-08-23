@@ -13,7 +13,10 @@ export function App() {
   const { state, load, create } = useTickets(apiTicketRepository);
   const [identity, setIdentity] = useState<{ name: string; role: string }>();
   useEffect(() => {
-    sessionApi.current().then(setIdentity).catch(() => undefined);
+    sessionApi
+      .current()
+      .then(setIdentity)
+      .catch(() => undefined);
   }, []);
   async function login() {
     const result = await sessionApi.login("alice@relaydesk.test", "password");
