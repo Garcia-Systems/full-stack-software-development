@@ -44,6 +44,8 @@ Visit <http://localhost:8080> for the built SPA. It uses the versioned `/api/v1`
 
 Start with [Chapter 1](book/chapters/01-full-stack-means-boundaries.md) and follow navigation through [Chapter 60](book/chapters/60-capstone.md). See the repository-specific [testing strategy](docs/TESTING_STRATEGY.md). Part I's disposable browser is retained only as a learning artifact; the Laravel root now serves the compiled React application with a direct-navigation fallback.
 
+The final curriculum review is recorded in the [final audit](docs/FINAL_AUDIT.md), with a [learner competency map](docs/COMPETENCY_MAP.md) and [tested technology baseline](docs/TECHNOLOGY_VERSIONS.md). The audit is deliberately candid about checks that require Docker and about the missing dependency lockfiles that must be resolved before a release is called reproducible.
+
 ## Production-like delivery
 
 Chapter 59 uses the existing architecture rather than adding a cloud vendor. Copy `.env.production.example` to the Git-ignored `.env.production`, replace every `CHANGE_ME`, set a unique `APP_VERSION`, then run `make production-build production-deploy`. The image contains compiled React assets and optimized PHP dependencies; migration is an explicit release step, and the same image runs HTTP and queue-worker processes. `/api/health/live` reports process/version while `/api/health/ready` checks cheap database/cache round trips. See [From Repository to Production](book/chapters/59-from-repository-to-production.md) for TLS responsibility, configuration failures, CI, worker/dependency incidents, backup/restore, bad-release rollback, and verification.

@@ -21,12 +21,14 @@ return Application::configure(basePath: dirname(__DIR__))
         });
         $exceptions->render(function (QueryException $e, Request $request) {
             if (!$request->is('api/*')) return null;
-            Log::error('persistence.failed', ['request_id' => $request->attributes->get('request_id'), 'exception' => get_class($e), 'message' => $e->getMessage()]);
+            // Driver messages can contain SQL bindings and therefore user-supplied or
+            // sensitive values. Keep boundary/category evidence without copying them.
+            Log::error('persistence.failed', ['request_id' => $request->attributes->get('request_id'), 'exception' => get_class($e), 'error_category' => 'database_query']);
             return response()->json(['type' => 'persistence_error', 'message' => 'Persistent state is temporarily unavailable.', 'request_id' => $request->attributes->get('request_id')], 503);
         });
         $exceptions->render(function (Throwable $e, Request $request) {
             if (!$request->is('api/*') || $e instanceof HttpExceptionInterface || $e instanceof QueryException || $e instanceof ValidationException) return null;
-            Log::error('request.unexpected', ['request_id' => $request->attributes->get('request_id'), 'exception' => get_class($e), 'message' => $e->getMessage()]);
+            Log::error('request.unexpected', ['request_id' => $request->attributes->get('request_id'), 'exception' => get_class($e), 'error_category' => 'unexpected_application_error']);
             return response()->json(['type' => 'unexpected_error', 'message' => 'The server could not complete the request.', 'request_id' => $request->attributes->get('request_id')], 500);
         });
     })->create();
