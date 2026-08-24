@@ -2,6 +2,8 @@
 
 [Previous](59-from-repository-to-production.md) · [Book home](../../README.md) · [Report template](../worksheets/capstone-engineering-report.md) · [Rubric](../worksheets/capstone-rubric.md)
 
+![Chapter 60](../../images/chapters/60.png)
+
 This is not another guided implementation. You own discovery, contract, transaction boundary, evidence, release, and explanation. Do not optimize for matching an imagined class diagram.
 
 ## Business brief

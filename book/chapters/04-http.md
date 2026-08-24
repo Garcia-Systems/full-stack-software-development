@@ -2,6 +2,8 @@
 
 [Previous](03-browser-runtime.md) · [Next](05-addressing.md)
 
+![Chapter 4](../../images/chapters/4.png)
+
 HTTP messages expose a method, target URL, headers, optional body, status, response headers, and response body. Observe them rather than memorizing status-code lists.
 
 ## Compare requests

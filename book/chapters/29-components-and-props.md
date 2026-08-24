@@ -2,6 +2,8 @@
 
 [Previous](28-reacts-mental-model.md) · [Next](30-state-and-events.md)
 
+![Chapter 29](../../images/chapters/29.png)
+
 As the ticket UI gains customer identity, status, priority, selection, and links, one render function becomes difficult to inspect. Decompose at business responsibilities: `TicketsPage` coordinates the view, `TicketList` composes a collection, `TicketCard` represents one ticket, and `StatusBadge` renders a repeated domain label.
 
 ```mermaid

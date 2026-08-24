@@ -2,6 +2,8 @@
 
 [Previous](24-data-integrity.md) · [Next](26-asynchronous-javascript.md)
 
+![Chapter 25](../../images/chapters/25.png)
+
 The browser has already parsed HTTP into a document. JavaScript is code running in that browser process: it can read the DOM, listen for browser events, and change the displayed document. It does not silently change MySQL.
 
 Open the existing RelayDesk page and DevTools **Elements** and **Console** panels. The precursor in `app/frontend/labs/browser-filter.js` uses a business interaction rather than an unrelated toy: a customer filter. `querySelector` finds nodes; an `input` event supplies the current value; the handler changes each row's `hidden` DOM property.

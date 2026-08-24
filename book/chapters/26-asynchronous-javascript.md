@@ -2,6 +2,8 @@
 
 [Previous](25-javascript-in-the-browser.md) · [Next](27-why-typescript-exists.md)
 
+![Chapter 26](../../images/chapters/26.png)
+
 Some browser work completes later. A promise represents that future completion; `await` pauses only the surrounding `async` function, not the browser. Fulfillment supplies a value and rejection supplies an error. `try`/`catch` handles awaited rejection.
 
 Run `app/frontend/labs/async-race.js` in a page after adding `<p id="async-result"></p>`. Its delays are fixed at 400 ms and 100 ms—no internet or scheduler luck is required.

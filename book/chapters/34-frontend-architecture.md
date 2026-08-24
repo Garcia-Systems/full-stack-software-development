@@ -2,6 +2,8 @@
 
 [Previous](33-routing-and-navigation.md) · [Book home](../../README.md)
 
+![Chapter 34](../../images/chapters/34.png)
+
 Architecture arrives after pain. A single component had fixture records, async timing, form mutation, routes, customer lookup, and markup. That made data ownership unclear and tests expensive. RelayDesk separates only responsibilities that now vary.
 
 ```mermaid

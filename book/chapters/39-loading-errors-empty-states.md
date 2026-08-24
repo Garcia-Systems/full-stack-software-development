@@ -2,6 +2,8 @@
 
 Previous: [Chapter 38](./38-react-talks-to-laravel.md)
 
+![Chapter 39](../../images/chapters/39.png)
+
 ## Start with the business boundary
 
 The UI models idle, loading, success-with-data, empty, and error rather than pretending a Promise is instant. The API client separately types validation, unauthenticated, forbidden, not-found, conflict, unexpected, and network failures. An HTTP error completed with a response; a network error has no response status.

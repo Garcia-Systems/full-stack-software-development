@@ -2,6 +2,8 @@
 
 [Previous](32-forms-and-validation.md) · [Next](34-frontend-architecture.md)
 
+![Chapter 33](../../images/chapters/33.png)
+
 Multiple justified views now exist: dashboard, ticket queue, ticket detail, customers, and ticket creation. React Router 7.8.2 maps URL state to page elements. A `NavLink` transition updates browser history and renders without requesting another HTML document; typing/reloading a URL makes the browser request that path from Laravel.
 
 ```mermaid

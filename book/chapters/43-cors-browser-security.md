@@ -2,6 +2,8 @@
 
 Previous: [Chapter 42](./42-cookies-sessions-and-tokens.md)
 
+![Chapter 43](../../images/chapters/43.png)
+
 ## Start with the business boundary
 
 An origin is scheme + host + port, so `http://localhost:5173` and `http://localhost:8080` differ. Browsers attach `Origin` and enforce the response; curl displays the response regardless. RelayDesk reflects only configured `FRONTEND_ORIGINS`, adds `Vary: Origin`, permits credentials, and never combines credentialed access with `*`.

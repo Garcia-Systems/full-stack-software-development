@@ -2,6 +2,8 @@
 
 [Previous](05-addressing.md) · [Next](07-persistent-state.md)
 
+![Chapter 6](../../images/chapters/6.png)
+
 “The server” here is a PHP CLI process listening on `0.0.0.0:8080` inside a container. Compose starts and supervises it; PHP writes request logs to standard error.
 
 ## Inspect its lifecycle

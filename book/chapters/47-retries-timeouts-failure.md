@@ -2,6 +2,8 @@
 
 > Part VI — Build Systems That Survive Reality
 
+![Chapter 47](../../images/chapters/47.png)
+
 ## An explicit failure policy
 
 A dependency call without a deadline can consume a worker indefinitely. RelayDesk sets a 300 ms connection timeout and a 1 second whole-request timeout. The HTTP client permits two additional attempts only for connection failures, 429, and 5xx. It does not retry 4xx validation/rejection or malformed successful data. The queue gives the job at most three executions; both layers are bounded, though layering retries can multiply calls and must be budgeted.

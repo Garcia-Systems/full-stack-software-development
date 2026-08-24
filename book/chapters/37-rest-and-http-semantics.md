@@ -2,6 +2,8 @@
 
 Previous: [Chapter 36](./36-json-and-serialization.md)
 
+![Chapter 37](../../images/chapters/37.png)
+
 ## Start with the business boundary
 
 Methods express intent: GET reads, POST creates, PATCH changes selected fields, and DELETE removes. Actual behavior supplies meaning: list/show are `200`, create is `201` plus `Location`, and successful delete is `204` with no body. Do not write a client that parses JSON after `204`.

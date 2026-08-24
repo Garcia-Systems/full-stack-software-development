@@ -2,6 +2,8 @@
 
 [Previous](54-database-integration-tests.md) · [Next](56-react-tests.md)
 
+![Chapter 55](../../images/chapters/55.png)
+
 Treat HTTP as a contract. Request through Laravel's application boundary and assert status, stable headers/shape, important values, and side effects.
 
 `PartFiveApiTest` covers unauthenticated `401`, viewer `403`, cross-tenant denial, successful `201`, camel-case JSON, and persistence. `PartSixResilienceTest` covers idempotent replay `201`, `Idempotency-Replayed`, conflict `409`, one ticket, one delivery, and one queued job. Existing CRUD and business-error tests retain validation `422`, not found `404`, and conflict behavior.

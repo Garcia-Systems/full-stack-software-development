@@ -2,6 +2,8 @@
 
 [Previous](06-server-process.md) · [Next](08-build-the-smallest-full-stack.md)
 
+![Chapter 7](../../images/chapters/7.png)
+
 The DOM and PHP variables disappear; a committed MySQL row remains in the named Docker volume. Persistence is an observed behavior, not simply “using a database.”
 
 ## Create, inspect, restart

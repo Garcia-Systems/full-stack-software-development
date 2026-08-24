@@ -2,6 +2,8 @@
 
 [Previous](53-unit-tests.md) · [Next](55-api-tests.md)
 
+![Chapter 54](../../images/chapters/54.png)
+
 A mocked repository can report “saved.” It cannot prove a foreign key exists, a relationship maps correctly, a uniqueness scope is correct, or a transaction rolls back. Those claims require cooperating code and real persistence.
 
 ## Evidence on storage

@@ -2,6 +2,8 @@
 
 > Part VI — Build Systems That Survive Reality
 
+![Chapter 51](../../images/chapters/51.png)
+
 ## Measure the critical path
 
 A slow dashboard could be React rendering, network, Laravel middleware, MySQL aggregation, cache access, or an unrelated dependency. Do not optimize all of them. The dashboard response exposes only data and cache outcome; server structured logs provide total duration and cache lookup duration, browser Network timing provides client-visible latency, and MySQL tools from Chapters 20–21 explain query work. Queued notification time is not on this HTTP critical path.

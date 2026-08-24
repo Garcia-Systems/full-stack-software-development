@@ -2,6 +2,8 @@
 
 Previous: [Chapter 40](./40-authentication.md)
 
+![Chapter 41](../../images/chapters/41.png)
+
 ## Start with the business boundary
 
 Authorization asks whether this known identity may perform this operation. Active memberships bind users to organizations. Admins/agents create; viewers read; only owners/admins delete. Every lookup checks membership on the backend, so changing an ID cannot cross the tenant boundary.

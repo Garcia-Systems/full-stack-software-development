@@ -2,6 +2,8 @@
 
 Previous: [Chapter 39](./39-loading-errors-empty-states.md)
 
+![Chapter 40](../../images/chapters/40.png)
+
 ## Start with the business boundary
 
 Authentication answers **who made this request?** RelayDesk uses Laravel's session guard with real seeded users. POST credentials to `/api/v1/session`; Laravel verifies the password, regenerates the session identifier, and returns the current identity. Protected endpoints return `401` without a valid session. DELETE logs out, invalidates the session, and regenerates the CSRF token.

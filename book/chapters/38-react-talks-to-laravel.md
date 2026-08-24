@@ -2,6 +2,8 @@
 
 Previous: [Chapter 37](./37-rest-and-http-semantics.md)
 
+![Chapter 38](../../images/chapters/38.png)
+
 ## Start with the business boundary
 
 Part IV's `fixtureTicketRepository` is replaced in the running application by `apiTicketRepository`. `TicketForm` creates a typed draft, the client serializes it, Laravel authenticates and validates, Eloquent inserts it, a resource serializes it, and the hook appends the returned row.

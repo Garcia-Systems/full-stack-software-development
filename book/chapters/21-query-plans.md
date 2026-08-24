@@ -2,6 +2,8 @@
 
 [Previous](20-indexes.md) · [Next](22-transactions.md)
 
+![Chapter 21](../../images/chapters/21.png)
+
 A query is not optimized because its PHP looks tidy. Ask MySQL how it actually runs.
 
 ```sh

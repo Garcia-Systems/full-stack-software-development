@@ -2,6 +2,8 @@
 
 [Previous](07-persistent-state.md) · [Next: A real Laravel application](09-real-laravel-application.md)
 
+![Chapter 8](../../images/chapters/8.png)
+
 The milestone is one genuine vertical feature: browser input → HTTP request → PHP validation and SQL → MySQL row → JSON response → refreshed GET → DOM.
 
 ```mermaid
