@@ -2,6 +2,8 @@
 
 > Part VI — Build Systems That Survive Reality
 
+![Chapter 48](../../images/chapters/48.png)
+
 ## The uncertainty window
 
 A client can time out after MySQL commits but before it receives `201`. It cannot infer whether retry means “try for the first time” or “repeat completed work.” RelayDesk accepts `Idempotency-Key` on ticket creation. The React client generates a new UUID per user submission and reuses the HTTP operation result only when the server sees the same tenant/key and identical normalized payload.

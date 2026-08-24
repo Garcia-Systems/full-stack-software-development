@@ -2,6 +2,8 @@
 
 [Book home](../../README.md) · [Next: Follow a request](02-follow-a-request.md)
 
+![Chapter 1](../../images/chapters/1.png)
+
 A stack is a set of cooperating runtimes and boundaries, not a job-title checklist. RelayDesk Part I has six observable pieces.
 
 ```mermaid

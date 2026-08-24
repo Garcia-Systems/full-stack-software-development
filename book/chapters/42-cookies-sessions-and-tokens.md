@@ -2,6 +2,8 @@
 
 Previous: [Chapter 41](./41-authorization-and-permissions.md)
 
+![Chapter 42](../../images/chapters/42.png)
+
 ## Start with the business boundary
 
 HTTP requests are separate events. On login the server stores authentication state in a session and sends an opaque session identifier cookie. Subsequent requests send that cookie; it does not contain Alice's password or the database row. Inspect `Set-Cookie` and `Cookie`, then correlate with the server session lookup.

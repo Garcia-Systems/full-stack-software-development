@@ -2,6 +2,8 @@
 
 [Previous](27-why-typescript-exists.md) · [Next](29-components-and-props.md)
 
+![Chapter 28](../../images/chapters/28.png)
+
 The imperative filter forced code to decide which DOM nodes to find and mutate. React solves the growing coordination problem with a different rule: **UI is derived from state**. A component render calculates React elements; React commits the necessary DOM changes.
 
 ```mermaid

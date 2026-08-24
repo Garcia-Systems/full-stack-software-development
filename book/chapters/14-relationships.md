@@ -2,6 +2,8 @@
 
 [Previous](13-crud-observable.md) · [Next](15-validation.md)
 
+![Chapter 14](../../images/chapters/14.png)
+
 Relationships exist because RelayDesk must answer which organization owns a customer and which customer owns a project or ticket. `belongsTo` and `hasMany` make traversal readable; foreign keys protect references even outside Laravel.
 
 ```sh

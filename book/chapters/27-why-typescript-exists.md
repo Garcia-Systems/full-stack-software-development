@@ -2,6 +2,8 @@
 
 [Previous](26-asynchronous-javascript.md) · [Next](28-reacts-mental-model.md)
 
+![Chapter 27](../../images/chapters/27.png)
+
 JavaScript permits an object shaped as `{ displayName: "Northwind" }` to reach code that reads `customer.name.toUpperCase()`. The interface mismatch becomes `undefined` and fails only on the executed path. TypeScript moves that expectation to a checkable boundary.
 
 Inspect `app/frontend/labs/contract-mismatch.ts`. Uncomment `heading(wrongShape)` and run:

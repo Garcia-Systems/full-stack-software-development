@@ -2,6 +2,8 @@
 
 [Previous](30-state-and-events.md) · [Next](32-forms-and-validation.md)
 
+![Chapter 31](../../images/chapters/31.png)
+
 `useState` retains component-owned snapshots. `useEffect` has a narrower purpose: synchronize React state/props with a system outside React—timers, subscriptions, browser APIs, or an async data source. It is not merely “code after render,” and ordinary derived values do not belong in effects.
 
 `useTickets(repository)` synchronizes with an injected fixture repository. Its effect starts a load; cleanup aborts obsolete work; the dependency list names the repository-backed `load` callback used by synchronization. The repository returns deterministic copies after 300 ms and can produce a controlled error.

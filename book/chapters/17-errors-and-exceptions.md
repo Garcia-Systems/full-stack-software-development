@@ -2,6 +2,8 @@
 
 [Previous](16-services-and-business-logic.md) · [Book home](../../README.md)
 
+![Chapter 17](../../images/chapters/17.png)
+
 Failure classification completes the backend path. Do not turn distinct failures into an unhelpful 500.
 
 | Failure owner | Example | Status/evidence |

@@ -2,6 +2,8 @@
 
 [Previous](09-real-laravel-application.md) · [Next](11-models-and-domain-objects.md)
 
+![Chapter 10](../../images/chapters/10.png)
+
 Routing is dispatch: **method + path → handler**. It does not validate ticket content or run SQL. RelayDesk declares list, create, show, update, delete, and status routes in `app/routes/api.php`; `TicketController` owns HTTP orchestration.
 
 ```sh

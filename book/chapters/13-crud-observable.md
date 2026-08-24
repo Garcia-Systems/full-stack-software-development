@@ -2,6 +2,8 @@
 
 [Previous](12-migrations-and-schema-design.md) · [Next](14-relationships.md)
 
+![Chapter 13](../../images/chapters/13.png)
+
 CRUD names four state effects; it does not explain their HTTP contract. Follow one ticket through every boundary.
 
 ```sh

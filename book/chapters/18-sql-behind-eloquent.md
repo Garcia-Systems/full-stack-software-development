@@ -2,6 +2,8 @@
 
 [Previous](17-errors-and-exceptions.md) · [Next](19-joins-and-relationships.md)
 
+![Chapter 18](../../images/chapters/18.png)
+
 Eloquent is a PHP interface to a separate system. It builds SQL, sends SQL structure plus bound values through PDO, MySQL executes it against rows, and Eloquent hydrates returned values into objects.
 
 ```mermaid

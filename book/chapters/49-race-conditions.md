@@ -2,6 +2,8 @@
 
 > Part VI — Build Systems That Survive Reality
 
+![Chapter 49](../../images/chapters/49.png)
+
 ## Beyond the lost-update lesson
 
 Chapter 23 raced two edits to one row. Here two asynchronous actors both believe a notification delivery is absent and try to claim the same logical job. A naïve **check, then act** crosses a scheduling gap. Both checks can truthfully observe absence; neither observation reserves ownership.

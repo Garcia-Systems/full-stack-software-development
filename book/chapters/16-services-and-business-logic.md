@@ -2,6 +2,8 @@
 
 [Previous](15-validation.md) · [Next](17-errors-and-exceptions.md)
 
+![Chapter 16](../../images/chapters/16.png)
+
 A project-creation request has become meaningful: the customer must be active, and its organization must remain below `project_limit`. Putting these decisions in a controller couples HTTP to rules; putting them in `Customer` would make the ORM record orchestrate organization queries and creation. `CreateProject` is justified because it names this use case.
 
 ```mermaid

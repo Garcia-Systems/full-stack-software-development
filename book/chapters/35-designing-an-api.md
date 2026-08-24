@@ -2,6 +2,8 @@
 
 Previous: [Chapter 34](./34-frontend-architecture.md)
 
+![Chapter 35](../../images/chapters/35.png)
+
 ## Start with the business boundary
 
 A support agent needs to see a tenant's queue and create a ticket. Begin with that outcome, then freeze the contract: `GET /api/v1/tickets?organization_id=1` returns `{data, meta, requestId}`; `POST /api/v1/tickets` accepts `{organization_id, customerId, subject, priority}` and returns `201`, a `Location` header, and `{data, requestId}`. Customers are a supporting resource at `GET /api/v1/customers`.

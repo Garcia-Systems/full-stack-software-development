@@ -2,6 +2,8 @@
 
 [Previous](55-api-tests.md) · [Next](57-end-to-end-tests.md)
 
+![Chapter 56](../../images/chapters/56.png)
+
 Test user action → observable UI result. RelayDesk uses Vitest, jsdom, Testing Library, and `user-event` already established in Part IV.
 
 ```sh

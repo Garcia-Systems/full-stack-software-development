@@ -2,6 +2,8 @@
 
 [Previous](02-follow-a-request.md) · [Next](04-http.md)
 
+![Chapter 3](../../images/chapters/3.png)
+
 The browser parses HTML into a DOM, executes JavaScript, owns temporary storage, and initiates HTTP. It is not a passive screen.
 
 ## Use DevTools as evidence

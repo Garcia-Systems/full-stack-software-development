@@ -2,6 +2,8 @@
 
 [Previous](57-end-to-end-tests.md) · [Evidence worksheet](../worksheets/debugging-evidence.md)
 
+![Chapter 58](../../images/chapters/58.png)
+
 Use **Symptom → Evidence → Boundary → Hypothesis → Investigation → Root Cause → Fix → Verification**. Debugging is hypothesis testing, not random modification.
 
 ```mermaid

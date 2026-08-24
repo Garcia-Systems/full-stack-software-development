@@ -2,6 +2,8 @@
 
 [Previous](08-build-the-smallest-full-stack.md) · [Next](10-routes-and-controllers.md)
 
+![Chapter 9](../../images/chapters/9.png)
+
 Chapter 8 exposed one router file. Laravel now performs the same necessary work through named components: `public/index.php` receives the request, Composer loads classes, `bootstrap/app.php` builds the application/container, middleware decorates the request, the router dispatches it, and a response returns. The framework removes repetition, not causality.
 
 ```mermaid

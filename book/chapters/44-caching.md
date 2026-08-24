@@ -2,6 +2,8 @@
 
 > Part VI — Build Systems That Survive Reality
 
+![Chapter 44](../../images/chapters/44.png)
+
 ## The pressure
 
 The dashboard repeatedly counts the same tenant's tickets. The result changes less often than it is read, so it is a justified cache candidate—not because Redis or caching is fashionable. RelayDesk uses Laravel's database cache store to avoid another service: it makes the second copy of state directly inspectable in `cache`. Redis would change storage and operational properties, not the hit/miss/invalidation reasoning.

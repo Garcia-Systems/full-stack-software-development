@@ -2,6 +2,8 @@
 
 [Previous](22-transactions.md) · [Next](24-data-integrity.md)
 
+![Chapter 23](../../images/chapters/23.png)
+
 Two correct request handlers can produce a wrong result when execution interleaves. The lab uses two snapshots read before either write; no frantic browser clicking or timing assumption is involved.
 
 ```mermaid

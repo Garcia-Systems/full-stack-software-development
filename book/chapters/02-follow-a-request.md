@@ -2,6 +2,8 @@
 
 [Previous](01-full-stack-means-boundaries.md) · [Next](03-browser-runtime.md)
 
+![Chapter 2](../../images/chapters/2.png)
+
 One identifier lets us prove that browser, HTTP response, and server log observations describe the same request.
 
 ```mermaid

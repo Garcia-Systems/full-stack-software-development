@@ -2,6 +2,8 @@
 
 [Previous](51-performance-across-stack.md) · [Next](53-unit-tests.md) · [Testing strategy](../../docs/TESTING_STRATEGY.md)
 
+![Chapter 52](../../images/chapters/52.png)
+
 > Tests are executable evidence about expected behavior.
 
 Start with risk. If customer creation, tenant denial, project validation, atomic provisioning, duplicate suppression, queued delivery, or API-error presentation broke, what evidence would give confidence that it still works? Test count and coverage cannot answer that question.

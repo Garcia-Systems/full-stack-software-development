@@ -2,6 +2,8 @@
 
 [Previous](29-components-and-props.md) · [Next](31-hooks-and-effects.md)
 
+![Chapter 30](../../images/chapters/30.png)
+
 RelayDesk now has meaningful interaction: filter the queue and select a ticket. The path is **click/input event → handler → state transition → render → visible UI**. `TicketsPage` owns both values because sibling cards and the count need a consistent view.
 
 `visible` is derived from `tickets` and `query`. It is not separate state. Storing it would create two sources of truth: a later ticket insertion could update `tickets` while `visibleTickets` remained stale. `useMemo` here documents/reuses a calculation; it does not change ownership.

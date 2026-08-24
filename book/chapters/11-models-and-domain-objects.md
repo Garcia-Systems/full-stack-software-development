@@ -2,6 +2,8 @@
 
 [Previous](10-routes-and-controllers.md) · [Next](12-migrations-and-schema-design.md)
 
+![Chapter 11](../../images/chapters/11.png)
+
 A database row is stored values. An Eloquent model is a PHP object that maps attributes and relationships to a row. “Customer is active” is a business concept whose consequences need not live in that model. RelayDesk uses `Organization`, `Customer`, `Project`, and `Ticket` models; Chapter 16 will put meaningful operations in services.
 
 ## Compare representations

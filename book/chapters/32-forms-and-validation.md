@@ -2,6 +2,8 @@
 
 [Previous](31-hooks-and-effects.md) · [Next](33-routing-and-navigation.md)
 
+![Chapter 32](../../images/chapters/32.png)
+
 The “New ticket” view uses an existing RelayDesk entity. Each controlled input receives its value from React state and reports changes through an event. Submission prevents browser navigation, validates the draft, exposes pending feedback, calls the injected local adapter, and renders success/failure.
 
 Try three deterministic cases: submit empty fields; choose a customer but enter `abc`; then submit “Printer needs attention.” Field messages and `aria-invalid` identify local problems, the button communicates pending state, and the status region announces the outcome. Inactive customers cannot be selected.

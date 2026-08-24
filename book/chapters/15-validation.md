@@ -2,6 +2,8 @@
 
 [Previous](14-relationships.md) · [Next](16-services-and-business-logic.md)
 
+![Chapter 15](../../images/chapters/15.png)
+
 ```mermaid
 flowchart LR
  B[Browser hints] --> H[HTTP input] --> V[Form Request validation] --> R[Business rules] --> D[Database constraints]

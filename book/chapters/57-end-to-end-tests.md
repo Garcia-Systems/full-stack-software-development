@@ -2,6 +2,8 @@
 
 [Previous](56-react-tests.md) · [Next](58-full-stack-debugging-method.md)
 
+![Chapter 57](../../images/chapters/57.png)
+
 Playwright covers only high-value journeys through a real browser and running RelayDesk:
 
 1. an admin session opens new-ticket, creates work, reloads, and sees the persisted subject;

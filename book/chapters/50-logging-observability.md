@@ -2,6 +2,8 @@
 
 > Part VI — Build Systems That Survive Reality
 
+![Chapter 50](../../images/chapters/50.png)
+
 ## Reconstruct, do not print
 
 RelayDesk now logs structured context at request, cache, job, and dependency boundaries. The stderr channel emits timestamp/level/message plus safe context: request or correlation ID, user/organization ID, route, status, duration, job ID, dependency, attempt, and error category. It does not log passwords, cookies, sessions, authorization headers, access tokens, complete external bodies, or ticket descriptions.

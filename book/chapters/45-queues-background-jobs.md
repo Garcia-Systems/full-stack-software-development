@@ -2,6 +2,8 @@
 
 > Part VI — Build Systems That Survive Reality
 
+![Chapter 45](../../images/chapters/45.png)
+
 ## Remove unrelated latency from HTTP
 
 Ticket creation must persist the ticket promptly. Notifying a controlled integration may be slow, so RelayDesk records an `integration_deliveries` row and dispatches `DeliverTicketNotification` after the transaction commits. The database queue is intentional: it is inspectable with SQL and adds no broker for one learner. A higher-volume system could justify Redis or another broker later.

@@ -2,6 +2,8 @@
 
 [Previous](21-query-plans.md) · [Next](23-concurrency.md)
 
+![Chapter 22](../../images/chapters/22.png)
+
 Provisioning a project also creates its first work item. A project with no kickoff ticket is contradictory business state.
 
 ```mermaid

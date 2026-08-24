@@ -2,6 +2,8 @@
 
 > Part VI — Build Systems That Survive Reality
 
+![Chapter 46](../../images/chapters/46.png)
+
 ## A real network boundary without a live vendor
 
 `dependency-simulator/router.php` is a small HTTP service that accepts ticket-created deliveries. `DependencyClient` owns endpoint configuration, correlation header, JSON request, response status, latency logging, and response validation. Business/job code does not know curl options or fake modes.

@@ -2,6 +2,8 @@
 
 [Previous](58-full-stack-debugging-method.md) · [Next](60-capstone.md)
 
+![Chapter 59](../../images/chapters/59.png)
+
 > What has to be true for code in this repository to become a system other people can reliably use?
 
 “It works on my machine” proves one execution. Shipping establishes a chain of evidence:

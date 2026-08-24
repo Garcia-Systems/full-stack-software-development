@@ -2,6 +2,8 @@
 
 [Previous](11-models-and-domain-objects.md) · [Next](13-crud-observable.md)
 
+![Chapter 12](../../images/chapters/12.png)
+
 A migration is an ordered, reviewable state transition. RelayDesk introduces only four current entities. Organizations own customers, projects, and tickets. Foreign keys express required parents; `project_id` is nullable because a general support ticket need not belong to a project. Defaults make new tickets `open`, `normal`, version 1. Timestamps make mutations inspectable.
 
 ```mermaid

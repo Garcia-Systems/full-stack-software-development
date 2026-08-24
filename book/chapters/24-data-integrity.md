@@ -2,6 +2,8 @@
 
 [Previous](23-concurrency.md) · [Next](25-javascript-in-the-browser.md)
 
+![Chapter 24](../../images/chapters/24.png)
+
 ```mermaid
 flowchart LR
  UI[UI hints] --> V[Application validation] --> B[Business services] --> C[(Database constraints)]

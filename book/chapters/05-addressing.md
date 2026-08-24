@@ -2,6 +2,8 @@
 
 [Previous](04-http.md) · [Next](06-server-process.md)
 
+![Chapter 5](../../images/chapters/5.png)
+
 In `http://localhost:8080/api/tickets`, `http` is the scheme, `localhost` the hostname, `8080` the port, and `/api/tickets` the path. The hostname must resolve, and a process must listen at the resulting address and port before HTTP can happen.
 
 ## Resolve and connect

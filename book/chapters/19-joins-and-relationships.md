@@ -2,6 +2,8 @@
 
 [Previous](18-sql-behind-eloquent.md) · [Next](20-indexes.md)
 
+![Chapter 19](../../images/chapters/19.png)
+
 The business asks: **which customers in organization 1 have open work, and how much?** Start with keys, not model method names. A customer row matches a ticket only when both `customer_id = customers.id` and the tenant identifiers match.
 
 ```sh

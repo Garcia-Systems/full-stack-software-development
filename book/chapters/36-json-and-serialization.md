@@ -2,6 +2,8 @@
 
 Previous: [Chapter 35](./35-designing-an-api.md)
 
+![Chapter 36](../../images/chapters/36.png)
+
 ## Start with the business boundary
 
 A PHP object is not JSON. `TicketResource` selects a representation and `JSON.stringify`/`response.json()` serialize and parse JSON text. The contract contains arrays, strings, numbers, `null` descriptions, nested customer objects, enum-like status strings, integer identifiers, and ISO-8601 UTC timestamps. IDs are identifiers, not quantities; money would require an integer minor-unit or decimal-string decision.

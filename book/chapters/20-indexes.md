@@ -2,6 +2,8 @@
 
 [Previous](19-joins-and-relationships.md) · [Next](21-query-plans.md)
 
+![Chapter 20](../../images/chapters/20.png)
+
 A support dashboard repeatedly finds urgent tickets for one organization and date range. As rows grow, a full scan makes customers wait. The lab seeder creates exactly 20,000 tickets in 40 batches, fixed subjects/timestamps, 200 urgent rows, and a dedicated organization. Re-running replaces only that organization's workload rows.
 
 ```sh

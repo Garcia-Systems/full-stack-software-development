@@ -2,6 +2,8 @@
 
 [Previous](52-what-should-be-tested.md) · [Next](54-database-integration-tests.md)
 
+![Chapter 53](../../images/chapters/53.png)
+
 A useful unit boundary tests a small behavior without requiring the entire application environment. `TicketWorkflowTest` constructs a ticket and proves that closed is terminal; no router, database, or mock repository is necessary.
 
 ## Arrange, act, assert
